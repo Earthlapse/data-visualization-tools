@@ -1290,7 +1290,7 @@
 
             // VIIRS specific waypoints
             // Issues arise if VIIRS waypoints are not handled first
-            if ((waypointIndex >= 1 && waypointIndex <= 5) || (waypointIndex >= 63 && waypointIndex <= 65)) {
+            if ((waypointIndex >= 2 && waypointIndex <= 5) || (waypointIndex >= 63 && waypointIndex <= 65)) {
               if (!$viirsLayerToggle.prop('checked')) {
                 $viirsLayerToggle.click();
               }
@@ -1408,11 +1408,11 @@
               if (!$coralLayerToggle.prop('checked')) {
                 $coralLayerToggle.click();
               }
-            } else if (waypointIndex == 91) {
+            } else if (waypointIndex == 9) {
               if (!$usgsWindTurbineLayerToggle.prop('checked')) {
                 $usgsWindTurbineLayerToggle.click();
               }
-            } else if (waypointIndex == 92) {
+            } else if (waypointIndex == 10) {
               if (!$solarInstallsLayerToggle.prop('checked')) {
                 $solarInstallsLayerToggle.click();
               }
