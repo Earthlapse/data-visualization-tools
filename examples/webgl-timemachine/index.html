@@ -75,6 +75,23 @@
     <script type="text/javascript">
       "use strict";
 
+      $(window).on("click", function () {
+        var controller = window.open("controller.html", "controller", "fullscreen=yes");
+        setTimeout(function () {
+            controller.init(window, $("#timeMachine_timelapse_dataPanes")[0]);
+        }, 1000);
+      }).on("touchstart", function (e) {
+          console.log(e);
+      });
+
+      var doIt = function (e) {
+          try {
+              document.dispatchEvent(e);
+          } catch (err) {
+              console.log(err);
+          }
+      };
+
       jQuery.support.cors = true;
 
       var previousWaypoint = {}, previousHimawariIdx, waypointViewChangeListener, hideWaypointListener;

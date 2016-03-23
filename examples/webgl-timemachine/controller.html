@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <style>
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      #map,#touch {
+          position: absolute;
+          width: 100%;
+        height: 100%;
+        background:#eee;
+      }
+    </style>
+</head>
+<body>
+    <div id="touch"></div>
+    <script src="http://code.jquery.com/jquery-2.2.2.min.js"></script>
+    <script>
+        var Parent;  
+        var Target;
+        var init = function (p,target) {
+            Parent = p;
+            Target = target;
+        };
+    
+        $("#touch").on("touchstart touchmove touchcancel touchend", function (e) {
+            e.preventDefault();
+            var args = {};
+            for (var key in e.originalEvent) {
+                args[key] = e.originalEvent[key];
+            }
+            args.changedTouches = [];
+            for (var i = 0; i < e.originalEvent.changedTouches.length; i++) {
+                var touch = e.originalEvent.changedTouches[i];
+                var x = {};
+                for (var key in touch) {
+                    x[key] = touch[key];
+                }
+                x.target = Target;
+                args.changedTouches.push(new Touch(x));
+            }
+
+            var e2 = new TouchEvent(e.type, args);
+            Parent.doIt(e2);
+        });
+    </script>
+</body>
+</html>
