@@ -1,0 +1,23 @@
+.earthlapse-modes-container {
+  visibility: hidden;
+  opacity: 0;
+  transition-duration: 0.2s;
+}
+
+
+body.earthlapse-modes-default .player,
+body.earthlapse-modes-menu .player,
+body.earthlapse-modes-story .player {
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+}
+
+body.earthlapse-modes-default .earthlapse-modes-default-container,
+body.earthlapse-modes-menu .earthlapse-modes-menu-container,
+body.earthlapse-modes-story .earthlapse-modes-story-container,
+body.earthlapse-modes-explore .earthlapse-modes-explore-container {
+  visibility: visible;
+  opacity: 1;
+}
