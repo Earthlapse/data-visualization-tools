@@ -9,8 +9,8 @@
   transform: scale(0.9);
 }
 
-.location_search_div.earthlapse-ui-chrome-optional {
-  transform-origin: left;
+.sideToolBar.earthlapse-ui-chrome-optional, .location_search_div.earthlapse-ui-chrome-optional {
+  transform-origin: top left;
 }
 
 #timeMachine.earthlapse-ui-minimal .vector-layers.earthlapse-ui-chrome-optional {
