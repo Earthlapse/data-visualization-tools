@@ -37,12 +37,11 @@ WAYPOINT_TEXT = [
     "text" : "  Here in California we see kind of an area that historically had a lot of farmland. If we move forward just the last few years, watch as these square areas crop up. These are all solar photovoltaic cells. "
   },
   {
-    "title" : "Solar photovoltaic installations across the United States.",
-    "text" : "If we zoom out, we can look across the United States at the installation of solar panels over the last 30 years. Watch for for installation in blue and white. You can see that by 2005 there’s a lot of it in California. Now watch the East Coast, you can see a lot of it really starts to light up, and now by 2015 you can see there are over half a million solar installations across the United States. "
-  },
-
-{
     "title" : "Wind Farm across U.S.",
     "text" : ""
+  },
+  {
+    "title" : "Solar photovoltaic installations across the United States.",
+    "text" : "If we zoom out, we can look across the United States at the installation of solar panels over the last 30 years. Watch for for installation in blue and white. You can see that by 2005 there’s a lot of it in California. Now watch the East Coast, you can see a lot of it really starts to light up, and now by 2015 you can see there are over half a million solar installations across the United States. "
   }
 ];
