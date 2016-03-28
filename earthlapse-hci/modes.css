@@ -21,3 +21,22 @@ body.earthlapse-modes-explore .earthlapse-modes-explore-container {
   visibility: visible;
   opacity: 1;
 }
+
+
+.overlay-content {
+    position: relative;
+    margin-top: 0px;
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    background-color: rgba(0,0,0, 0.5);
+}
+
+.overlay-content h1{
+    padding: 16px;
+    text-decoration: none;
+    font-size: 96px;
+    color: #ffffff;
+    display: block;
+    transition: 0.3s;
+}
