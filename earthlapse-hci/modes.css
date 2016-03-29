@@ -34,9 +34,27 @@ body.earthlapse-modes-explore .earthlapse-modes-explore-container {
 
 .overlay-content h1{
     padding: 16px;
-    text-decoration: none;
     font-size: 96px;
     color: #ffffff;
     display: block;
     transition: 0.3s;
+}
+
+.overlay-content h2{
+    padding: 16px;
+    font-size: 48px;
+    color: #ffffff;
+    display: block;
+    transition: 0.3s;
+}
+
+div.img {
+    margin: 5px;
+    float: left;
+} 
+
+
+div.desc {
+    padding: 15px;
+    text-align: center;
 }
