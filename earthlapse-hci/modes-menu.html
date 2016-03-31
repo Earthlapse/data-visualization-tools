@@ -1,4 +1,16 @@
-<div class="overlay-content">
+<script>
+  EarthlapseUI.bind("loadedscreen", function (e) {
+    if (e.mode !== "menu") return;
+
+    $(".earthlapse-modes-menu-container").on("click touchstart", "a", function (e) {
+      e.preventDefault();
+      var $a = $(this);
+      if (!$a.hasClass("earthlapse-modes-menu-explorebutton")) return;
+      EarthlapseUI.changeModeTo("explore");
+    });
+  });
+</script>
+<div class="earthlapse-modes-screen">
 <h2>Choose a screen to begin</h2>
 
   <a target="_blank" href="http://placehold.it/250x150">
@@ -55,6 +67,13 @@
 <div class="img">
 <img src="http://placehold.it/250x150">
   <div class="desc">U.S. Solar</div>
+</div>
+  </a>
+
+      <a class="earthlapse-modes-menu-explorebutton" target="_blank" href="http://placehold.it/250x150">
+<div class="img">
+<img src="http://placehold.it/250x150">
+  <div class="desc">Explore</div>
 </div>
   </a>
 

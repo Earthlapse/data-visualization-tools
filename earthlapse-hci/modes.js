@@ -5,6 +5,8 @@
   var currentMode = "default";
 
   EarthlapseUI.changeModeTo = function (mode) {
+    if (currentMode === mode) { return; }
+
     var $body = $("body");
     $body.removeClass("earthlapse-modes-default earthlapse-modes-story earthlapse-modes-explore earthlapse-modes-menu");
 
@@ -30,33 +32,55 @@
 
     EarthlapseUI.trigger("changemode", {
        oldMode: oldMode,
-       newMode: currentMode
+       mode: currentMode
     });
   };
 
+  EarthlapseUI.loadScreen = function (mode) {
+    $("<link href=\"../../earthlapse-hci/modes-" + escape(mode) + ".css\" rel=\"stylesheet\" type=\"text/css\" />").appendTo("head");
+    $.ajax({
+      url: "../../earthlapse-hci/modes-" + escape(mode) + ".html",
+      success: function (results) {
+        var $results = $(results);
+        var $screen = $results.filter(".earthlapse-modes-screen");
+        $screen.addClass("earthlapse-modes-container earthlapse-modes-" + escape(mode) + "-container");
+        $("#timeMachine").append($results);
+        EarthlapseUI.trigger("loadedscreen", { mode: mode });
+      }
+    });
+  };
+
+  (function () {
+    var revertTimeout = null;
+    EarthlapseUI.revertToDefault = function () {
+      EarthlapseUI.changeModeTo("default");
+      EarthlapseUI.resetRevertTimeout();
+    };
+    EarthlapseUI.resetRevertTimeout = function () {
+      clearTimeout(revertTimeout);
+      revertTimeout = setTimeout(function () {
+          EarthlapseUI.revertToDefault();
+      }, 5 * 60 * 1000);
+    };
+    $(window).on("click", function () {
+      EarthlapseUI.resetRevertTimeout();
+    });
+  }());
+
   EarthlapseUI.bind("init", function () {
     $("body").addClass("earthlapse-modes earthlapse-modes-default");
+
     var $explore = $(".location_search_div, .presentationSlider, .current-location-text, .player > div[class]:not(#timeMachine_timelapse), #timeMachine_timelapse > div");
     $explore.addClass("earthlapse-modes-container earthlapse-modes-explore-container");
+    var $backToMenu = $("<a class=\"earthlapse-modes-homebutton\" href=\"#\">Menu</a>").on("click", function (e) {
+        e.preventDefault();
+        EarthlapseUI.changeModeTo("menu");
+    }).addClass("earthlapse-modes-container earthlapse-modes-explore-container");
+    $("#timeMachine").append($backToMenu);
 
-    $.ajax({
-      url: "../../earthlapse-hci/modes-default.html",
-      success: function (results) {
-          var $results = $(results).addClass("earthlapse-modes-default-container");
-          $("#timeMachine").append($results);
-      }
-    });
-    $("<link href=\"../../earthlapse-hci/modes-default.css\" rel=\"stylesheet\" type=\"text/css\" />").appendTo("head");
+    EarthlapseUI.loadScreen("default");
+    EarthlapseUI.loadScreen("menu");
 
-    $.ajax({
-      url: "../../earthlapse-hci/modes-menu.html",
-      success: function (results) {
-          var $results = $(results).addClass("earthlapse-modes-menu-container");
-          $("#timeMachine").append($results);
-      }
-    });
-    $("<link href=\"../../earthlapse-hci/modes-menu.css\" rel=\"stylesheet\" type=\"text/css\" />").appendTo("head");
-
-    EarthlapseUI.changeModeTo("explore");
+    EarthlapseUI.revertToDefault();
   });
 }(jQuery));

@@ -1,5 +1,18 @@
-<div class="overlay-content">
-<h1>Welcome to Earthlapse</h1>
-<h1>Touch the touchscreen to begin</h1>
-</div>
+<script>
+    EarthlapseUI.bind("loadedscreen", function (e) {
+        if (e.mode !== "default") return;
 
+        EarthlapseUI.bind("changemode", function (e) {
+            if (e.mode !== "default") return;
+            // insert awesome keyframe transition here
+        });
+
+        $(".earthlapse-modes-default-container").on("click touchstart", function (e) {
+            EarthlapseUI.changeModeTo("menu");
+        });
+    });
+</script>
+<div class="earthlapse-modes-screen">
+    <h1>Welcome to Earthlapse</h1>
+    <h1>Touch the touchscreen to begin</h1>
+</div>

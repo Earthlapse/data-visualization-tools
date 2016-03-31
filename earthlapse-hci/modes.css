@@ -1,9 +1,9 @@
 .earthlapse-modes-container {
   visibility: hidden;
   opacity: 0;
-  transition-duration: 0.2s;
+  transition-duration: 1s;
+  font-family: "Source Sans Pro", Helvetica, Arial, sans-serif;
 }
-
 
 body.earthlapse-modes-default .player,
 body.earthlapse-modes-menu .player,
@@ -23,38 +23,48 @@ body.earthlapse-modes-explore .earthlapse-modes-explore-container {
 }
 
 
-.overlay-content {
-    position: relative;
-    margin-top: 0px;
-    height: 100%;
-    width: 100%;
+.earthlapse-modes-screen {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
     text-align: center;
     background-color: rgba(0,0,0, 0.5);
+    color: #ffffff;
 }
 
-.overlay-content h1{
+.earthlapse-modes-screen h1 {
     padding: 16px;
     font-size: 96px;
-    color: #ffffff;
-    display: block;
-    transition: 0.3s;
 }
 
-.overlay-content h2{
+.earthlapse-modes-screen h2 {
     padding: 16px;
     font-size: 48px;
-    color: #ffffff;
-    display: block;
-    transition: 0.3s;
 }
 
-div.img {
-    margin: 5px;
-    float: left;
-} 
+.earthlapse-modes-screen a {
+    color: #ffffff;
+}
 
-
-div.desc {
-    padding: 15px;
+.earthlapse-modes-homebutton {
+    position: absolute;
+    background: rgba(255,255,255,1);
+    color: #000;
+    border: 1px solid rgba(101,101,101,1);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
+    outline: none;
+    box-shadow: 2px 2px 3px rgba(0,0,0,0.3);
+    z-index: 99;
+    top: 30px;
+    left: 30px;
+    width: 80px;
+    height: 80px;
     text-align: center;
+    line-height: 80px;
+    background: #FFF;
+    color: #000;
+    border-radius: 50%;
 }
