@@ -2,16 +2,8 @@
   visibility: hidden;
   opacity: 0;
   transition-duration: 1s;
+  transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
   font-family: "Source Sans Pro", Helvetica, Arial, sans-serif;
-}
-
-body.earthlapse-modes-default .player,
-body.earthlapse-modes-menu .player,
-body.earthlapse-modes-story .player {
-  top: 0 !important;
-  left: 0 !important;
-  right: 0 !important;
-  bottom: 0 !important;
 }
 
 body.earthlapse-modes-default .earthlapse-modes-default-container,
@@ -20,8 +12,11 @@ body.earthlapse-modes-story .earthlapse-modes-story-container,
 body.earthlapse-modes-explore .earthlapse-modes-explore-container {
   visibility: visible;
   opacity: 1;
+  transform: none;
 }
 
+/* Layout CSS
+-------------------------------------------------- */
 
 .earthlapse-modes-screen {
     position: absolute;
@@ -48,6 +43,9 @@ body.earthlapse-modes-explore .earthlapse-modes-explore-container {
     color: #ffffff;
 }
 
+/* Global interactors
+-------------------------------------------------- */
+
 .earthlapse-modes-homebutton {
     position: absolute;
     background: rgba(255,255,255,1);
@@ -59,7 +57,7 @@ body.earthlapse-modes-explore .earthlapse-modes-explore-container {
     box-shadow: 2px 2px 3px rgba(0,0,0,0.3);
     z-index: 99;
     top: 30px;
-    left: 30px;
+    left: 20px;
     width: 80px;
     height: 80px;
     text-align: center;
@@ -67,4 +65,33 @@ body.earthlapse-modes-explore .earthlapse-modes-explore-container {
     background: #FFF;
     color: #000;
     border-radius: 50%;
+}
+
+/* CREATE Lab CSS modifications for exploration mode
+-------------------------------------------------- */
+
+.player {
+  transition-duration: 1s;
+  transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+body.earthlapse-modes-default .player,
+body.earthlapse-modes-menu .player,
+body.earthlapse-modes-story .player {
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+}
+
+body.earthlapse-modes-explore .presentationSlider {
+    transform: none;
+}
+
+.presentationSlider {
+    transform: translate(0, 100%);
+}
+
+.customHelpLabel {
+    display: none;
 }

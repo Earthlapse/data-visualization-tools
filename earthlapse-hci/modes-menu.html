@@ -1,81 +1,82 @@
 <script>
-  EarthlapseUI.bind("loadedscreen", function (e) {
-    if (e.mode !== "menu") return;
+    EarthlapseUI.bind("loadedscreen", function (e) {
+        if (e.mode !== "menu") { return; }
 
-    $(".earthlapse-modes-menu-container").on("click touchstart", "a", function (e) {
-      e.preventDefault();
-      var $a = $(this);
-      if (!$a.hasClass("earthlapse-modes-menu-explorebutton")) return;
-      EarthlapseUI.changeModeTo("explore");
+        // On selection of any menu item, initiate the story/exploration
+        $(".earthlapse-modes-menu-container").on("click touchstart", ".earthlapse-modes-menu-item", function (e) {
+            var $item = $(this);
+
+            // User selected the special exploration tile
+            if ($item.hasClass("earthlapse-modes-menu-explorebutton")) {
+                EarthlapseUI.changeModeTo("explore");
+            }
+        });
     });
-  });
 </script>
 <div class="earthlapse-modes-screen">
-<h2>Choose a screen to begin</h2>
+    <h2>Choose a screen to begin</h2>
 
-  <a target="_blank" href="http://placehold.it/250x150">
+    <div class="ui-button earthlapse-modes-menu-item">
+        <div class="img">
+            <img src="http://placehold.it/250x150">
+            <div class="desc">Las Vegas</div>
+        </div>
+    </div>
 
-<div class="img">
-<img src="http://placehold.it/250x150">
-  <div class="desc">Las Vegas</div>
+    <div class="ui-button earthlapse-modes-menu-item">
+        <div class="img">
+            <img src="http://placehold.it/250x150">
+            <div class="desc">Lake Urmia</div>
+        </div>
+    </div>
+
+    <div class="ui-button earthlapse-modes-menu-item">
+        <div class="img">
+            <img src="http://placehold.it/250x150">
+            <div class="desc">Fire at Night</div>
+        </div>
+    </div>
+
+    <div class="ui-button earthlapse-modes-menu-item">
+        <div class="img">
+            <img src="http://placehold.it/250x150">
+            <div class="desc">Amazon Deforestation</div>
+        </div>
+    </div>
+
+    <div class="ui-button earthlapse-modes-menu-item">
+        <div class="img">
+            <img src="http://placehold.it/250x150">
+            <div class="desc">Columbia Glacier</div>
+        </div>
+    </div>
+
+    <div class="ui-button earthlapse-modes-menu-item">
+        <div class="img">
+            <img src="http://placehold.it/250x150">
+            <div class="desc">Solar Panel in California</div>
+        </div>
+    </div>
+
+    <div class="ui-button earthlapse-modes-menu-item">
+        <div class="img">
+            <img src="http://placehold.it/250x150">
+            <div class="desc">U.S. Solar</div>
+        </div>
+    </div>
+
+    <div class="ui-button earthlapse-modes-menu-item">
+        <div class="img">
+            <img src="http://placehold.it/250x150">
+            <div class="desc">U.S. Solar</div>
+        </div>
+    </div>
+
+    <div class="ui-button earthlapse-modes-menu-item earthlapse-modes-menu-explorebutton">
+        <div class="img">
+            <img src="http://placehold.it/250x150">
+            <div class="desc">Explore</div>
+        </div>
+    </div>
+
 </div>
-  </a>
-
-  <a target="_blank" href="http://placehold.it/250x150">
-<div class="img">
-<img src="http://placehold.it/250x150">
-  <div class="desc">Lake Urmia</div>
-</div>
-  </a>
-
-  <a target="_blank" href="http://placehold.it/250x150">
-<div class="img">
-<img src="http://placehold.it/250x150">
-  <div class="desc">Fire at Night</div>
-</div>
-  </a>
-
-  <a target="_blank" href="http://placehold.it/250x150">
-<div class="img">
-<img src="http://placehold.it/250x150">
-  <div class="desc">Amazon Deforestation</div>
-</div>
-  </a>
-
- <a target="_blank" href="http://placehold.it/250x150">
-<div class="img">
-<img src="http://placehold.it/250x150">
-  <div class="desc">Columbia Glacier</div>
-</div>
-  </a>
-
-    <a target="_blank" href="http://placehold.it/250x150">
-<div class="img">
-<img src="http://placehold.it/250x150">
-  <div class="desc">Solar Panel in California</div>
-</div>
-  </a>
-
-    <a target="_blank" href="http://placehold.it/250x150">
-<div class="img">
-<img src="http://placehold.it/250x150">
-  <div class="desc">U.S. Solar</div>
-</div>
-  </a>
-
-      <a target="_blank" href="http://placehold.it/250x150">
-<div class="img">
-<img src="http://placehold.it/250x150">
-  <div class="desc">U.S. Solar</div>
-</div>
-  </a>
-
-      <a class="earthlapse-modes-menu-explorebutton" target="_blank" href="http://placehold.it/250x150">
-<div class="img">
-<img src="http://placehold.it/250x150">
-  <div class="desc">Explore</div>
-</div>
-  </a>
-
-</div>
-

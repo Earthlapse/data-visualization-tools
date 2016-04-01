@@ -1,12 +1,32 @@
 <script>
     EarthlapseUI.bind("loadedscreen", function (e) {
-        if (e.mode !== "default") return;
+        if (e.mode !== "default") { return; }
 
         EarthlapseUI.bind("changemode", function (e) {
-            if (e.mode !== "default") return;
-            // insert awesome keyframe transition here
+            if (e.mode !== "default") { return; }
+
+            // Reset exploration mode
+            $("#timeMachine .thumbnail_highlight").removeClass("thumbnail_highlight");
+
+            // Set Himawari bounding box
+            var himawariBoundingBox = {
+                xmin: -1359084.2753164559,
+                xmax: 2699145.5981012657,
+                ymin: -440698.40031645633,
+                ymax: 1962534.6028481005
+            };
+
+            // Configure timelapse for Himawari Earth animation
+            timelapse.setPlaybackRate(Math.abs(timelapse.getPlaybackRate()));
+            timelapse.play();
+            timelapse.setLoopPlayback(true);
+            var himawariView = { bbox: himawariBoundingBox };
+            loadHimawari();
+            timelapse.stopParabolicMotion();
+            timelapse.setNewView(himawariView, true, null, null);
         });
 
+        // On any click, go to menu page
         $(".earthlapse-modes-default-container").on("click touchstart", function (e) {
             EarthlapseUI.changeModeTo("menu");
         });
