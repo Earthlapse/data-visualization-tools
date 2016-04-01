@@ -1,0 +1,9 @@
+.earthlapse-modes-menu-container div.img {
+    margin: 5px;
+    float: left;
+} 
+
+.earthlapse-modes-menu-container div.desc {
+    padding: 15px;
+    text-align: center;
+}

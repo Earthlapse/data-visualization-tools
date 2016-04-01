@@ -15,5 +15,8 @@
         $machine.toggleClass("earthlapse-ui-minimal");
         lastTouch = thisTouch;
     });
+
+    $machine.addClass("earthlapse-ui-minimal");
+    $toggle.hide();
   });
 }(jQuery));
