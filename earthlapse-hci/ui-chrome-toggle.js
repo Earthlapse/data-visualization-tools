@@ -1,22 +1,41 @@
 "use strict";
 
-(function ($) {
-  EarthlapseUI.bind("init", function () {
-    var $toggle = $("<button type=\"button\" id=\"earthlapse-ui-chrome-toggle\" />");
-    var $toggleDiv = $("<div class=\"earthlapse-ui-chrome earthlapse-ui-chrome-toggle-div\" />").append($toggle);
-    var $machine = $("#timeMachine").append($toggleDiv);
-    var $chrome = $(".vector-layers, .location_search_div, .sideToolBar").addClass("earthlapse-ui-chrome earthlapse-ui-chrome-optional");
+(function($) {
+    /* Configuration */
+    var showToggleUI = false;      // show the minimize/restore button?
+    var defaultComplexity = "minimal"; // default UI complexity: full or minimal
 
-    var lastTouch = 0;
-    $toggle.on("mousedown touchstart", function (e) {
-        e.preventDefault();
-        var thisTouch = (new Date()).getTime();
-        if (thisTouch - lastTouch < 200) return;
-        $machine.toggleClass("earthlapse-ui-minimal");
-        lastTouch = thisTouch;
+    /* Bindings */
+    EarthlapseUI.bind("init", function() {
+        var $machine = $("#timeMachine");
+
+        // Mark optional UI elements
+        var $chrome = $(".vector-layers, .location_search_div, .sideToolBar").addClass("earthlapse-ui-chrome earthlapse-ui-chrome-optional");
+
+        // Default to minimal UI
+        if (defaultComplexity === "minimal") {
+            $machine.addClass("earthlapse-ui-minimal");
+        }
+
+        if (showToggleUI) {
+            // Add UI toggle button
+            var $toggle = $("<button type=\"button\" id=\"earthlapse-ui-chrome-toggle\" />");
+            var $toggleDiv = $("<div class=\"earthlapse-ui-chrome earthlapse-ui-chrome-toggle-div\" />").append($toggle);
+            $machine.append($toggleDiv);
+
+            // Attach event handler to toggle button
+            var lastTouch = 0;
+            $toggle.on("mousedown touchstart", function(e) {
+                e.preventDefault();
+
+                // Prevent double triggers
+                var thisTouch = (new Date()).getTime();
+                if (thisTouch - lastTouch < 200) { return; }
+                lastTouch = thisTouch;
+
+                // Toggle optional UI elements
+                $machine.toggleClass("earthlapse-ui-minimal");
+            });
+        }
     });
-
-    $machine.addClass("earthlapse-ui-minimal");
-    $toggle.hide();
-  });
-}(jQuery));
+} (jQuery));
