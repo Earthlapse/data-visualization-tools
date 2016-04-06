@@ -1,15 +1,16 @@
 "use strict";
 
 (function($) {
-    // Configuration
+    /* Configuration */
     var defaultMode = "default";
     var revertTimeoutDelay = 5 * 60 * 1000; // milliseconds since last click/touch
 
-    // State information
+    /* State information */
     var currentMode = "";
     var revertTimeout = null;
 
-    var changeModeTo = function(mode) {
+    /* Functions */
+    function changeModeTo(mode) {
         // If mode isn't chnaging, do nothing
         if (currentMode === mode) { return; }
 
@@ -44,9 +45,9 @@
             oldMode: oldMode,
             mode: mode
         });
-    };
+    }
 
-    var loadScreen = function(mode) {
+    function loadScreen(mode) {
         // Load mode-specific CSS
         $("<link href=\"../../earthlapse-hci/modes-" + escape(mode) + ".css\" rel=\"stylesheet\" type=\"text/css\" />").appendTo("head");
 
@@ -65,33 +66,23 @@
 
                 // If this is the default screen, switch to it now
                 if (mode === defaultMode) {
-                    EarthlapseUI.revertToDefault();
+                    revertToDefault();
                 }
             }
         });
     };
 
-    var revertToDefault = function() {
+    function revertToDefault() {
         changeModeTo("default");
         resetRevertTimeout();
     };
 
-    var resetRevertTimeout = function() {
+    function resetRevertTimeout() {
         clearTimeout(revertTimeout);
         revertTimeout = setTimeout(function() {
             revertToDefault();
         }, revertTimeoutDelay);
     };
-
-    $(window).on("click touchstart", function() {
-        resetRevertTimeout();
-    });
-
-    // Expose modes API
-    EarthlapseUI.changeModeTo = changeModeTo;
-    EarthlapseUI.loadScreen = loadScreen;
-    EarthlapseUI.revertToDefault = revertToDefault;
-    EarthlapseUI.resetRevertTimeout = resetRevertTimeout;
 
     // Initialize
     EarthlapseUI.bind("init", function() {
@@ -112,5 +103,18 @@
         // Load other Earthlapse modes
         loadScreen("default");
         loadScreen("menu");
+
+        // Set up timeout to revert to default mode
+        $(window).on("click touchstart", function() {
+            resetRevertTimeout();
+        });
     });
+
+    // Expose modes API
+    EarthlapseUI.Modes = {
+        changeModeTo: changeModeTo,
+        loadScreen: loadScreen,
+        revertToDefault: revertToDefault,
+        resetRevertTimeout: resetRevertTimeout
+    };
 } (jQuery));

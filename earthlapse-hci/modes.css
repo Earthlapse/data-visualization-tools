@@ -95,3 +95,8 @@ body.earthlapse-modes-explore .presentationSlider {
 .customHelpLabel {
     display: none;
 }
+
+body.earthlapse-modes .vector-legend {
+    top: 30px;
+    left: 120px !important;
+}
