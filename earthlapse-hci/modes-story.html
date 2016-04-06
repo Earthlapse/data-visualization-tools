@@ -1,0 +1,16 @@
+<script>
+    EarthlapseUI.bind("loadedscreen", function (e) {
+        if (e.mode !== "story") { return; }
+
+        // Bind navigation controls
+        var $screen = $(".earthlapse-modes-screen.earthlapse-modes-story-container");
+        var $backToMenu = $screen.find(".earthlapse-modes-homebutton");
+        $backToMenu.on("click", function(e) {
+            e.preventDefault();
+            EarthlapseUI.Modes.changeModeTo("menu");
+        });
+    });
+</script>
+<div class="earthlapse-modes-screen">
+    <button class="ui-button earthlapse-modes-homebutton">Menu</button>
+</div>

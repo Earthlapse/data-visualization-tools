@@ -9,6 +9,9 @@
             // User selected the special exploration tile
             if ($item.hasClass("earthlapse-modes-menu-explorebutton")) {
                 EarthlapseUI.Modes.changeModeTo("explore");
+            } else {
+                // Earthlapse.Stories.startStory(storyId);
+                EarthlapseUI.Modes.changeModeTo("story");
             }
         });
     });

@@ -103,6 +103,7 @@
         // Load other Earthlapse modes
         loadScreen("default");
         loadScreen("menu");
+        loadScreen("story");
 
         // Set up timeout to revert to default mode
         $(window).on("click touchstart", function() {
