@@ -5,12 +5,13 @@
         // On selection of any menu item, initiate the story/exploration
         $(".earthlapse-modes-menu-container").on("click touchstart", ".earthlapse-modes-menu-item", function (e) {
             var $item = $(this);
+            var storyId = $item.data("storyid");
 
             // User selected the special exploration tile
             if ($item.hasClass("earthlapse-modes-menu-explorebutton")) {
                 EarthlapseUI.Modes.changeModeTo("explore");
             } else {
-                // Earthlapse.Stories.startStory(storyId);
+                EarthlapseUI.Stories.startStory(storyId);
                 EarthlapseUI.Modes.changeModeTo("story");
             }
         });
@@ -19,56 +20,56 @@
 <div class="earthlapse-modes-screen">
     <h2>Choose a screen to begin</h2>
 
-    <div class="ui-button earthlapse-modes-menu-item">
+    <div class="ui-button earthlapse-modes-menu-item" data-storyid="example">
         <div class="img">
             <img src="http://placehold.it/250x150">
             <div class="desc">Las Vegas</div>
         </div>
     </div>
 
-    <div class="ui-button earthlapse-modes-menu-item">
+    <div class="ui-button earthlapse-modes-menu-item" data-storyid="example">
         <div class="img">
             <img src="http://placehold.it/250x150">
             <div class="desc">Lake Urmia</div>
         </div>
     </div>
 
-    <div class="ui-button earthlapse-modes-menu-item">
+    <div class="ui-button earthlapse-modes-menu-item" data-storyid="example">
         <div class="img">
             <img src="http://placehold.it/250x150">
             <div class="desc">Fire at Night</div>
         </div>
     </div>
 
-    <div class="ui-button earthlapse-modes-menu-item">
+    <div class="ui-button earthlapse-modes-menu-item" data-storyid="example">
         <div class="img">
             <img src="http://placehold.it/250x150">
             <div class="desc">Amazon Deforestation</div>
         </div>
     </div>
 
-    <div class="ui-button earthlapse-modes-menu-item">
+    <div class="ui-button earthlapse-modes-menu-item" data-storyid="example">
         <div class="img">
             <img src="http://placehold.it/250x150">
             <div class="desc">Columbia Glacier</div>
         </div>
     </div>
 
-    <div class="ui-button earthlapse-modes-menu-item">
+    <div class="ui-button earthlapse-modes-menu-item" data-storyid="example">
         <div class="img">
             <img src="http://placehold.it/250x150">
             <div class="desc">Solar Panel in California</div>
         </div>
     </div>
 
-    <div class="ui-button earthlapse-modes-menu-item">
+    <div class="ui-button earthlapse-modes-menu-item" data-storyid="example">
         <div class="img">
             <img src="http://placehold.it/250x150">
             <div class="desc">U.S. Solar</div>
         </div>
     </div>
 
-    <div class="ui-button earthlapse-modes-menu-item">
+    <div class="ui-button earthlapse-modes-menu-item" data-storyid="example">
         <div class="img">
             <img src="http://placehold.it/250x150">
             <div class="desc">U.S. Solar</div>
