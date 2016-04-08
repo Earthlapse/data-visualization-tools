@@ -1,3 +1,40 @@
 .earthlapse-modes-screen.earthlapse-modes-story-container {
     background: none;
 }
+
+.earthlapse-stories-timeline {
+    position: absolute;
+    bottom: 100px;
+    left: 0;
+    width: 100%;
+    padding: 0 5%;
+    box-sizing: border-box;
+    background: #ffffff;
+}
+
+.earthlapse-stories-timeline {
+    height: 2px;
+    box-shadow: 3px 3px 5px rgba(0,0,0,0.5);
+}
+
+.earthlapse-stories-timeline-wrap {
+    position: relative;
+    height: 100%;
+    width: 90%;
+    margin: 0 auto;
+}
+
+.earthlapse-stories-timeline-line {
+    position: absolute;
+    top: -4px;
+    bottom: -4px;
+    left: -12%;
+    right: 67%;
+    background: #1BA3B7;
+    box-shadow: 5px 5px 8px rgba(0,0,0,0.65);
+}
+
+.earthlapse-modes-story .earthlapse-stories-timeline-line {
+    transition-duration: 0.1s;
+    transition-timing-function: linear;
+}

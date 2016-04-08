@@ -2,9 +2,9 @@
 
 (function($) {
     /* State information */
-    var index;     // int,
-    var storyId;   // string,
-    var storyDict; // storyId -> keyframeArray
+    var index;     // Keyframe index in current story
+    var storyId;   // Current story's storyID,
+    var storyDict; // Maps storyId -> keyframeArray
 
     var defaultMap = "landsat-base";
     var maps, layers;
@@ -57,14 +57,19 @@
 
     }
 
-    function startStory(storyNumber) {
-        storyId = storyNumber;
+    function startStory(requestedStoryId) {
+        // Check if valid story ID
+        if (typeof storyDict[requestedStoryId] === "undefined") {
+            throw "Invalid story ID";
+        }
+
+        storyId = requestedStoryId;
 
         // Reset story mode
-        buildTimeline();
         clearMap();
         clearLayers();
         hideTextControlButton();
+        Timeline.start();
 
         // Rewind story
         goToKeyframe(0);
@@ -72,37 +77,40 @@
 
     function endStory() {
         Earthlapse.Modes.changeModeTo("menu");
+        Timeline.stop();
     }
 
     function goToKeyframe(newIndex) {
+        var keyframes = storyDict[storyId];
+        var keyframe = keyframes[newIndex];
+
         // Check keyframe index bounds
         if (newIndex < 0 || newIndex > storyDict[storyId].length - 1) {
             throw "[Earthlapse.Stories] Keyframe index " + newIndex + " is out of bounds";
         }
 
-        index = newIndex;
-
         // Hide the back or next button depends on the index availability
-        if (index + 1 > storyDict[storyId].length - 1) {
+        if (newIndex + 1 > keyframes.length - 1) {
             $('#nextButton').hide();
         }
-        if (index - 1 < 0) {
+        if (newIndex - 1 < 0) {
             $('#backButton').hide();
         }
 
-        setNewView(storyDict[storyId][index]['BoundingBox']);
-        setMap(storyDict[storyId][0]["Map"]);
-        setLayers(storyDict[storyId][0]["Layers"]);
+        index = newIndex;
+        setBoundingBox(keyframe['BoundingBox']);
+        setMap(keyframe["Map"]);
+        setLayers(keyframe["Layers"]);
         showTextControlButton();
 
         // Should we seek to another frame?
-        if (storyDict[storyId][index]['StopFrame'] >= 0) {
+        if (keyframe['StopFrame'] >= 0) {
             pause();
-            seek(storyDict[storyId][index]['StopFrame']);
+            seek(keyframe['StopFrame']);
         }
 
         // Should we pause the timelapse?
-        if (!storyDict[storyId][index]["Pause"]) {
+        if (!keyframe["Pause"]) {
             play();
         }
     }
@@ -119,8 +127,8 @@
         timelapse.setPlaybackRate(rate);
     } // send to timelapse
 
-    function setNewView(boundingBox) {
-        timelapse.setNewView(boundingBox);
+    function setBoundingBox(boundingBox) {
+        timelapse.setNewView({ bbox: boundingBox });
     } // send to timelapse
 
     function play() {
@@ -135,19 +143,50 @@
         timelapse.seek(timeInSec);
     } // send to timelapse
 
-    function buildTimeline() {
-        // loop through keyframes to find all years
-        // construct timeline DOM tree
-        // attach to story mode container
-    }
+    var Timeline = (function () {
+        var $line;
 
-    function initTimeline() {
-        timelapse.addTimeChangeListener(function (e) {
-            console.log(e);
+        // Update timeline width
+        function update(currentTime) {
+            var lastFrame = timelapse.getNumFrames();
+            var lastFrameTime = timelapse.frameNumberToTime(lastFrame);
+            var fps = timelapse.getFps();
+            $line.css({
+                "right": (1 - currentTime / lastFrameTime) * 100 + "%",
+                "transition-duration": (1/fps) + "s"
+            });
+        }
+
+        // Attach time change event listener
+        function start() {
+            // loop through keyframes to find all years
+            // construct timeline DOM tree
+            $line = $(".earthlapse-stories-timeline-line");
+            timelapse.addTimeChangeListener(update);
+        }
+
+        // Detach time change event listener
+        function stop() {
+            timelapse.removeTimeChangeListener(update);
+        }
+
+        return {
+            start: start,
+            stop: stop
+        };
+    } ());
+
+    function loadStory(storyId) {
+        $.ajax({
+            url: "../../earthlapse-hci/stories/" + escape(storyId) + ".json",
+            dataType: "json",
+            success: function (keyframes) {
+                storyDict[storyId] = keyframes
+            }
         });
     }
 
-    function loadLayers() {
+    EarthlapseUI.bind("init", function() {
         maps = {
             // Earth Engine Timelapse
             "landsat-base": { $dom: $("#landsat-base") },
@@ -191,12 +230,9 @@
             // Water Change
             "show-water-change": { $dom: $("#show-water-change") }
         };
-    }
 
-    EarthlapseUI.bind("init", function() {
-        loadLayers();
-
-        // Ajax download stories here
+        storyDict = {};
+        loadStory("example");
     });
     // todo: bind to pan events
 
