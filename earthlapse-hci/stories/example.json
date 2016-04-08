@@ -1,13 +1,15 @@
-[{
-    "Text": "ToBeWritten",
-    "BoundingBox": {
-        "xmin": 239318.1997833043,
-        "xmax": 243329.75371107023,
-        "ymin": 522985.54512794747,
-        "ymax": 525046.8030298844
-    },
-    "Pause": false,
-    "StopFrame": 0,
-    "Layers": [],
-    "Map": "landsat-base"
-}]
+[
+    {
+        "Text": "ToBeWritten",
+        "BoundingBox": {
+            "xmin": 239318.1997833043,
+            "xmax": 243329.75371107023,
+            "ymin": 522985.54512794747,
+            "ymax": 525046.8030298844
+        },
+        "Pause": false,
+        "StopFrame": 0,
+        "Layers": [],
+        "Map": "landsat-base"
+    }
+]

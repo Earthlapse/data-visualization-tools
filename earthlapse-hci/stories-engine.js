@@ -54,18 +54,14 @@
     }
 
     function isInView() {
-        var boundingBox=storyDict[storyId][index]["BoundingBox"];
-        var epsilonX=(boundingBox["xmax"]-boundingBox["xmin"])/2;
-        var epsilonY=(boundingBox["ymax"]-boundingBox["ymin"])/2;
-        var currentBoundingBox=getBoundingBoxForCurrentView();
-        
-        if(Math.abs(currentBoundingBox['xmax']-boundingBox['xmax'])<epsilonX&&Math.abs(currentBoundingBox['ymax']-boundingBox['ymax'])<epsilonY){
-            return true;
-        }
-        else{
-            return false;
-        }
+        var boundingBox = storyDict[storyId][index]["BoundingBox"];
+        var epsilonX = (boundingBox["xmax"] - boundingBox["xmin"]) / 2;
+        var epsilonY = (boundingBox["ymax"] - boundingBox["ymin"]) / 2;
+        var currentBoundingBox = getBoundingBoxForCurrentView();
 
+        var inBoundsX = Math.abs(currentBoundingBox['xmax'] - boundingBox['xmax']) < epsilonX;
+        var inBoundsY = Math.abs(currentBoundingBox['ymax'] - boundingBox['ymax']) < epsilonY;
+        return inBoundsX && inBoundsY;
     }
 
     function startStory(requestedStoryId) {
@@ -118,6 +114,7 @@
         if (keyframe['StopFrame'] >= 0) {
             pause();
             seekToFrame(storyDict[storyId][index]['StopFrame']);
+        }
 
         // Should we pause the timelapse?
         if (!keyframe["Pause"]) {
@@ -141,7 +138,7 @@
         timelapse.setNewView({ bbox: boundingBox });
     } // send to timelapse
 
-    function getBoundingBoxForCurrentView(){
+    function getBoundingBoxForCurrentView() {
         timelapse.getBoundingBoxForCurrentView();
     }
 
@@ -161,7 +158,7 @@
         $.ajax({
             url: "../../earthlapse-hci/stories/" + escape(storyId) + ".json",
             dataType: "json",
-            success: function (keyframes) {
+            success: function(keyframes) {
                 storyDict[storyId] = keyframes
             }
         });
@@ -214,6 +211,7 @@
 
         storyDict = {};
         loadStory("example");
+        loadStory("las-vegas");
     });
     // todo: bind to pan events
 
