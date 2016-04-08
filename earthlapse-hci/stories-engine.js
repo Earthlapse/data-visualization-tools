@@ -69,15 +69,15 @@
         clearMap();
         clearLayers();
         hideTextControlButton();
-        Timeline.start();
+        EarthlapseUI.Stories.Timeline.start();
 
         // Rewind story
         goToKeyframe(0);
     }
 
     function endStory() {
-        Earthlapse.Modes.changeModeTo("menu");
-        Timeline.stop();
+        EarthlapseUI.Modes.changeModeTo("menu");
+        EarthlapseUI.Stories.Timeline.stop();
     }
 
     function goToKeyframe(newIndex) {
@@ -142,39 +142,6 @@
     function seek(timeInSec) {
         timelapse.seek(timeInSec);
     } // send to timelapse
-
-    var Timeline = (function () {
-        var $line;
-
-        // Update timeline width
-        function update(currentTime) {
-            var lastFrame = timelapse.getNumFrames();
-            var lastFrameTime = timelapse.frameNumberToTime(lastFrame);
-            var fps = timelapse.getFps();
-            $line.css({
-                "right": (1 - currentTime / lastFrameTime) * 100 + "%",
-                "transition-duration": (1/fps) + "s"
-            });
-        }
-
-        // Attach time change event listener
-        function start() {
-            // loop through keyframes to find all years
-            // construct timeline DOM tree
-            $line = $(".earthlapse-stories-timeline-line");
-            timelapse.addTimeChangeListener(update);
-        }
-
-        // Detach time change event listener
-        function stop() {
-            timelapse.removeTimeChangeListener(update);
-        }
-
-        return {
-            start: start,
-            stop: stop
-        };
-    } ());
 
     function loadStory(storyId) {
         $.ajax({
