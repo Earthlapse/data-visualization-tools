@@ -54,6 +54,17 @@
     }
 
     function isInView() {
+        var boundingBox=storyDict[storyId][index]["BoundingBox"];
+        var epsilonX=(boundingBox["xmax"]-boundingBox["xmin"])/2;
+        var epsilonY=(boundingBox["ymax"]-boundingBox["ymin"])/2;
+        var currentBoundingBox=getBoundingBoxForCurrentView();
+        
+        if(Math.abs(currentBoundingBox['xmax']-boundingBox['xmax'])<epsilonX&&Math.abs(currentBoundingBox['ymax']-boundingBox['ymax'])<epsilonY){
+            return true;
+        }
+        else{
+            return false;
+        }
 
     }
 
@@ -98,7 +109,7 @@
         // Should we seek to another frame?
         if (storyDict[storyId][index]['StopFrame'] >= 0) {
             pause();
-            seek(storyDict[storyId][index]['StopFrame']);
+            seekToFrame(storyDict[storyId][index]['StopFrame']);
         }
 
         // Should we pause the timelapse?
@@ -123,6 +134,10 @@
         timelapse.setNewView(boundingBox);
     } // send to timelapse
 
+    function getBoundingBoxForCurrentView(){
+        timelapse.getBoundingBoxForCurrentView();
+    }
+
     function play() {
         timelapse.play();
     } // send to timelapse
@@ -131,8 +146,8 @@
         timelapse.pause();
     } // send to timelapse
 
-    function seek(timeInSec) {
-        timelapse.seek(timeInSec);
+    function seekToFrame(frameNumber) {
+        timelapse.seekToFrame(frameNumber);
     } // send to timelapse
 
     function buildTimeline() {

@@ -1,0 +1,66 @@
+{  
+   "Las Vegas":[  
+      {  
+         "Text":"ToBeWritten",
+         "BoundingBox":{  
+            "xmin":239318.1997833043,
+            "xmax":243329.75371107023,
+            "ymin":522985.54512794747,
+            "ymax":525046.8030298844
+         },
+         "Pause":true,
+         "StopFrame":1984,
+         "Layers":[  ],
+         "Map":"landsat-base"
+      },
+      {  
+         "Text":"ToBeWritten",
+         "BoundingBox":{  
+            "xmin":239276.788495516,
+            "xmax":242220.88405917794,
+            "ymin":523144.22186910635,
+            "ymax":524527.2428511922
+         },
+         "Pause":false,
+         "StopFrame":-1,
+         "Layers":[  ],
+         "Map":"landsat-base"
+      },
+      {  
+         "Text":"ToBeWritten",
+         "BoundingBox":{  
+            "xmin":239276.788495516,
+            "xmax":242220.88405917794,
+            "ymin":523144.22186910635,
+            "ymax":524527.2428511922
+         },
+         "Pause":false,
+         "StopFrame":-1,
+         "Layers":[  ],
+         "Map":"landsat-base"
+      },
+      {  
+         "Text":"ToBeWritten",
+         "BoundingBox":{  
+            "xmin":241335.64161644113,
+            "xmax":243022.59307168378,
+            "ymin":523816.2365739558,
+            "ymax":524608.7004080642
+         },
+         "Pause":false,
+         "StopFrame":0,
+         "Layers":[  ],
+         "Map":"landsat-base"
+      },
+      {  
+         "Text":"ToBeWritten",
+         "BoundingBox":{  },
+         "Pause":false,
+         "StopFrame":1984,
+         "Layers":[  ],
+         "Map":"landsat-base"
+      }
+   ],
+   "Lake Urmia":[  ],
+   "Fires at Night":[  ]
+}
