@@ -22,7 +22,6 @@
         setTimeout(function () {
             var lastFrameNumber = timelapse.getNumFrames() - 1;
             var captureTimes = timelapse.getCaptureTimes();
-            console.log(captureTimes);
 
             var frames = [];
             for (var i = 0; i < keyframes.length; i++) {
