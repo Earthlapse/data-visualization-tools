@@ -32,7 +32,6 @@
     right: 100%;
     background: #1BA3B7;
     box-shadow: 5px 5px 8px rgba(0,0,0,0.65);
-    transition-duration: 0.1s;
     transition-timing-function: linear;
 }
 
@@ -68,7 +67,7 @@
     color: #000000;
     border: 0;
     padding: 10px;
-    width: 120px;
+    width: 130px;
     box-shadow: 5px 5px 15px rgba(0,0,0,0.65);
     outline: none;
     transition-duration: 0.2s;

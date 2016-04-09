@@ -5,7 +5,10 @@
     var $line;
 
     // Update timeline progress bar
-    function update(currentTime) {
+    function update() {
+        // passed argument might be out of date
+        var currentTime = timelapse.getCurrentTime();
+
         var lastFrameTime = timelapse.frameNumberToTime(timelapse.getNumFrames() - 1);
         currentTime = currentTime > lastFrameTime ? lastFrameTime : currentTime;
         var fps = timelapse.getFps();
