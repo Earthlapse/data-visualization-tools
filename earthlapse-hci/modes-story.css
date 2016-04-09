@@ -2,9 +2,12 @@
     background: none;
 }
 
+/* Timeline
+-------------------------------------------------- */
+
 .earthlapse-stories-timeline {
     position: absolute;
-    bottom: 100px;
+    bottom: 65px;
     left: 0;
     width: 100%;
     height: 2px;
@@ -23,12 +26,65 @@
 
 .earthlapse-stories-timeline-line {
     position: absolute;
-    top: -4px;
-    bottom: -4px;
+    top: -5px;
+    bottom: -5px;
     left: -12%;
-    right: 67%;
+    right: 100%;
     background: #1BA3B7;
     box-shadow: 5px 5px 8px rgba(0,0,0,0.65);
     transition-duration: 0.1s;
     transition-timing-function: linear;
+}
+
+.earthlapse-stories-timeline-labels-item {
+    position: absolute;
+    bottom: 40px;
+    font-size: 48px;
+    text-shadow: 5px 5px 15px rgba(0,0,0,0.85);
+}
+
+/* Explain
+-------------------------------------------------- */
+
+.earthlapse-stories-explain {
+    position: absolute;
+    right: 50px;
+    top: 30px;
+    max-width: 1000px;
+    width: 50%;
+    text-align: left;
+}
+
+.earthlapse-stories-explain-text {
+    font-size: 42px;
+    padding: 0 0 30px 0;
+    text-shadow: 5px 5px 15px rgba(0,0,0,0.65);
+}
+
+.earthlapse-stories-explain-nav-button {
+    font-size: 24px;
+    border-radius: 10px;
+    background: #ffffff;
+    color: #000000;
+    border: 0;
+    padding: 10px;
+    width: 120px;
+    box-shadow: 5px 5px 15px rgba(0,0,0,0.65);
+    outline: none;
+    transition-duration: 0.2s;
+}
+
+.earthlapse-stories-explain-nav-button:focus,
+.earthlapse-stories-explain-nav-button:active {
+    background: #000000;
+    color: #ffffff;
+}
+
+.earthlapse-stories-explain-nav-back {
+    float: left;
+}
+
+.earthlapse-stories-explain-nav-done,
+.earthlapse-stories-explain-nav-next {
+    float: right;
 }

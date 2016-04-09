@@ -1,6 +1,6 @@
 [
     {
-        "Text": "ToBeWritten",
+        "Text": "This is keyframe 1",
         "BoundingBox": {
             "xmin": 239318.1997833043,
             "xmax": 243329.75371107023,
@@ -8,7 +8,33 @@
             "ymax": 525046.8030298844
         },
         "Pause": false,
-        "StopFrame": 0,
+        "StopFrame": "1984",
+        "Layers": [],
+        "Map": "landsat-base"
+    },
+    {
+        "Text": "This is keyframe 2",
+        "BoundingBox": {
+            "xmin": 241335.64161644113,
+            "xmax": 243022.59307168378,
+            "ymin": 523816.2365739558,
+            "ymax": 524608.7004080642
+        },
+        "Pause": true,
+        "StopFrame": "2015",
+        "Layers": [],
+        "Map": "landsat-base"
+    },
+    {
+        "Text": "This is keyframe 2",
+        "BoundingBox": {
+            "xmin": 241335.64161644113,
+            "xmax": 243022.59307168378,
+            "ymin": 523816.2365739558,
+            "ymax": 524608.7004080642
+        },
+        "Pause": false,
+        "StopFrame": "1984",
         "Layers": [],
         "Map": "landsat-base"
     }

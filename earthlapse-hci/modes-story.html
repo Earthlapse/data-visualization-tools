@@ -2,17 +2,104 @@
     EarthlapseUI.bind("loadedscreen", function (e) {
         if (e.mode !== "story") { return; }
 
-        // Bind navigation controls
         var $screen = $(".earthlapse-modes-screen.earthlapse-modes-story-container");
-        var $backToMenu = $screen.find(".earthlapse-modes-homebutton");
-        $backToMenu.on("click", function(e) {
-            e.preventDefault();
-            EarthlapseUI.Modes.changeModeTo("menu");
-        });
+
+        function bindPrimaryNav() {
+            // Button: Back to menu
+            var $backToMenu = $screen.find(".earthlapse-modes-homebutton");
+            $backToMenu.on("click", function(e) {
+                e.preventDefault();
+                EarthlapseUI.Modes.changeModeTo("menu");
+                EarthlapseUI.Stories.endStory();
+            });
+        }
+
+        function bindViewport() {
+            EarthlapseUI.bind("storyenteredview", function (e) {
+                $(".earthlapse-stories-explain").show();
+            });
+
+            EarthlapseUI.bind("storyexitedview", function (e) {
+                $(".earthlapse-stories-explain").hide();
+            });
+        }
+
+        function bindExplain() {
+            // Button: Prev keyframe
+            var $explainBack = $screen.find(".earthlapse-stories-explain-nav-back");
+            $explainBack.on("click", function(e) {
+                e.preventDefault();
+                EarthlapseUI.Stories.prevKeyframe();
+            });
+
+            // Button: Next keyframe
+            var $explainNext = $screen.find(".earthlapse-stories-explain-nav-next");
+            $explainNext.on("click", function(e) {
+                e.preventDefault();
+                EarthlapseUI.Stories.nextKeyframe();
+            });
+
+            // Button: Finish story
+            var $explainFinish = $screen.find(".earthlapse-stories-explain-nav-done");
+            $explainFinish.on("click", function(e) {
+                e.preventDefault();
+                EarthlapseUI.Modes.changeModeTo("menu");
+                EarthlapseUI.Stories.endStory();
+            });
+
+            // Hide buttons if we are at keyframe limits
+            var $explainText = $screen.find(".earthlapse-stories-explain-text");
+            EarthlapseUI.bind("storykeyframechanged", function (e) {
+                $explainText.text(e.text);
+                $explainNext[e.isLastKeyframe ? "hide" : "show"]();
+                $explainBack[e.isFirstKeyframe ? "hide" : "show"]();
+                $explainFinish[e.isLastKeyframe ? "show" : "hide"]();
+            });
+        }
+
+        function bindTimeline() {
+            var $line = $(".earthlapse-stories-timeline-line");
+            EarthlapseUI.bind("storytimeupdate", function (e) {
+                $line.css({
+                    "right": (1 - e.currentTime / e.lastFrameTime) * 100 + "%",
+                    "transition-duration": (1 / e.fps) + "s"
+                });
+            });
+
+            var $labels = $(".earthlapse-stories-timeline-labels");
+            EarthlapseUI.bind("storynewtimeline", function (e) {
+                $labels.empty();
+                for (var i = 0; i < e.frames.length; i++) {
+                    var $label = $("<span class=\"earthlapse-stories-timeline-labels-item\" />");
+                    $label.text(e.frames[i].frameId);
+                    $labels.append($label);
+
+                    var width = $label.width();
+                    $label.css({
+                        marginLeft: -width/2,
+                        marginRight: -width/2,
+                        left: (e.frames[i].frameNumber / e.lastFrameNumber * 100) + "%",
+                    });
+                }
+            });
+        }
+
+        bindPrimaryNav();
+        bindViewport();
+        bindExplain();
+        bindTimeline();
     });
 </script>
 <div class="earthlapse-modes-screen">
     <button class="ui-button earthlapse-modes-homebutton">Menu</button>
+    <div class="earthlapse-stories-explain">
+        <div class="earthlapse-stories-explain-text"></div>
+        <div class="earthlapse-stories-explain-nav">
+            <button class="earthlapse-stories-explain-nav-button earthlapse-stories-explain-nav-back">&larr; Back</button>
+            <button class="earthlapse-stories-explain-nav-button earthlapse-stories-explain-nav-next">Next &rarr;</button>
+            <button class="earthlapse-stories-explain-nav-button earthlapse-stories-explain-nav-done">Finish</button>
+        </div>
+    </div>
     <div class="earthlapse-stories-timeline">
         <div class="earthlapse-stories-timeline-wrap">
             <span class="earthlapse-stories-timeline-line"></span>

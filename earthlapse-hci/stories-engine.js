@@ -41,29 +41,6 @@
         maps[defaultMap].$dom.click();
     }
 
-    function setText() {
-        $('').text(storyDict[storyId][index]);
-    }
-
-    function showTextControlButton() {
-        $('').show();
-    }
-
-    function hideTextControlButton() {
-        $('').hide();
-    }
-
-    function isInView() {
-        var boundingBox = storyDict[storyId][index]["BoundingBox"];
-        var epsilonX = (boundingBox["xmax"] - boundingBox["xmin"]) / 2;
-        var epsilonY = (boundingBox["ymax"] - boundingBox["ymin"]) / 2;
-        var currentBoundingBox = getBoundingBoxForCurrentView();
-
-        var inBoundsX = Math.abs(currentBoundingBox['xmax'] - boundingBox['xmax']) < epsilonX;
-        var inBoundsY = Math.abs(currentBoundingBox['ymax'] - boundingBox['ymax']) < epsilonY;
-        return inBoundsX && inBoundsY;
-    }
-
     function startStory(requestedStoryId) {
         // Check if valid story ID
         if (typeof storyDict[requestedStoryId] === "undefined") {
@@ -75,8 +52,7 @@
         // Reset story mode
         clearMap();
         clearLayers();
-        hideTextControlButton();
-        EarthlapseUI.Stories.Timeline.start();
+        EarthlapseUI.Stories.Timeline.build(storyDict[requestedStoryId]);
 
         // Rewind story
         goToKeyframe(0);
@@ -84,42 +60,45 @@
 
     function endStory() {
         EarthlapseUI.Modes.changeModeTo("menu");
-        EarthlapseUI.Stories.Timeline.stop();
     }
 
     function goToKeyframe(newIndex) {
-        var keyframes = storyDict[storyId];
-        var keyframe = keyframes[newIndex];
-
         // Check keyframe index bounds
         if (newIndex < 0 || newIndex > storyDict[storyId].length - 1) {
             throw "[Earthlapse.Stories] Keyframe index " + newIndex + " is out of bounds";
         }
 
-        // Hide the back or next button depends on the index availability
-        if (newIndex + 1 > keyframes.length - 1) {
-            $('#nextButton').hide();
-        }
-        if (newIndex - 1 < 0) {
-            $('#backButton').hide();
-        }
-
         index = newIndex;
-        setBoundingBox(keyframe['BoundingBox']);
+        var keyframe = storyDict[storyId][index];
+
+        // Notify DOM listeners that the current keyframe has changed
+        // e.g. so that they can show/hide buttons
+        EarthlapseUI.trigger("storykeyframechanged", {
+            text: keyframe["Text"],
+            index: index,
+            isFirstKeyframe: index - 1 < 0,
+            isLastKeyframe: index + 1 > storyDict[storyId].length - 1
+        });
+
+        // Prepare scene
+        EarthlapseUI.Stories.Viewport.clear();
+        flyToBox(keyframe['BoundingBox']);
         setMap(keyframe["Map"]);
         setLayers(keyframe["Layers"]);
-        showTextControlButton();
 
-        // Should we seek to another frame?
-        if (keyframe['StopFrame'] >= 0) {
-            pause();
-            seekToFrame(storyDict[storyId][index]['StopFrame']);
-        }
+        // FIXME: must wait for captureTimes to update; possible race condition
+        setTimeout(function () {
+            // Should we seek to another frame?
+            if (keyframe['StopFrame'] !== null) {
+                pause();
+                seekToFrame(keyframe['StopFrame']);
+            }
 
-        // Should we pause the timelapse?
-        if (!keyframe["Pause"]) {
-            play();
-        }
+            // Should we pause the timelapse?
+            if (!keyframe["Pause"]) {
+                play();
+            }
+        }, 0);
     }
 
     function nextKeyframe() {
@@ -134,13 +113,10 @@
         timelapse.setPlaybackRate(rate);
     } // send to timelapse
 
-    function setBoundingBox(boundingBox) {
+    function flyToBox(boundingBox) {
+        EarthlapseUI.Stories.Viewport.setBoundingBox(boundingBox);
         timelapse.setNewView({ bbox: boundingBox });
     } // send to timelapse
-
-    function getBoundingBoxForCurrentView() {
-        timelapse.getBoundingBoxForCurrentView();
-    }
 
     function play() {
         timelapse.play();
@@ -150,7 +126,9 @@
         timelapse.pause();
     } // send to timelapse
 
-    function seekToFrame(frameNumber) {
+    function seekToFrame(frameId) {
+        var captureTimes = timelapse.getCaptureTimes();
+        var frameNumber = captureTimes.indexOf(frameId);
         timelapse.seekToFrame(frameNumber);
     } // send to timelapse
 
