@@ -1,2 +1,41 @@
 [
+    {
+        "Text": "This is Lake Urmia, located in the northwestern part of Iran near the Iranian Turkish border. In 1984, Lake Urmia was a very large lake, spanning about 150 kilometers north to south. At the time it was the largest lake in the Middle East and the sixth largest saltwater lake on Earth.",
+        "BoundingBox": {
+            "xmin": 825937.5591172382,
+            "xmax": 846248.1624617864,
+            "ymin": 512091.2882841517,
+            "ymax": 522527.4914091517
+        },
+        "Pause": true,
+        "StopFrame": "1984",
+        "Layers": [],
+        "Map": "landsat-base"
+    },
+    {
+        "Text": "Over the past 30 years, Lake Urmia has shrunk to about 10% of its original size. This is due mostly to the damming of rivers around the lake and to the pumping of groundwater from the lake’s vicinity.",
+        "BoundingBox": {
+            "xmin": 825937.5591172382,
+            "xmax": 846248.1624617864,
+            "ymin": 512091.2882841517,
+            "ymax": 522527.4914091517
+        },
+        "Pause": false,
+        "StopFrame": "1984",
+        "Layers": [],
+        "Map": "landsat-base"
+    },
+    {
+        "Text": "Lake Urmia is situated in the middle of the desert and if you look closely, you can see green areas around the lake where food is being grown. The water that used to go into feeding Lake Urmia from the rivers was diverted to these agricultural areas.",
+        "BoundingBox": {
+            "xmin": 825937.5591172382,
+            "xmax": 846248.1624617864,
+            "ymin": 512091.2882841517,
+            "ymax": 522527.4914091517
+        },
+        "Pause": false,
+        "StopFrame": null,
+        "Layers": [],
+        "Map": "landsat-base"
+    }
 ]

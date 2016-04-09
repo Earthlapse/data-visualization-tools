@@ -22,9 +22,6 @@
     }
 
     function clearLayers() {
-        // Default to Landsat turned on
-        maps[defaultMap].$dom.click();
-
         for (var key in layers) {
             var $layerToggle = layers[key].$dom;
             if ($layerToggle.prop("checked")) {
@@ -111,26 +108,31 @@
 
     function setPlaybackRate(rate) {
         timelapse.setPlaybackRate(rate);
-    } // send to timelapse
+    }
 
     function flyToBox(boundingBox) {
         EarthlapseUI.Stories.Viewport.setBoundingBox(boundingBox);
         timelapse.setNewView({ bbox: boundingBox });
-    } // send to timelapse
+    }
 
     function play() {
-        timelapse.play();
-    } // send to timelapse
+        // Prefer handlePlayPause() over play() and pause()
+        if (!timelapse.isPaused() || timelapse.isDoingLoopingDwell()) { return; }
+        timelapse.handlePlayPause();
+    }
 
     function pause() {
-        timelapse.pause();
-    } // send to timelapse
+        // FIXME: timelapse.pause() causes indefinite loop dwelling for some reason
+        // Prefer handlePlayPause() over play() and pause()
+        if (timelapse.isPaused() && !timelapse.isDoingLoopingDwell()) { return; }
+        timelapse.handlePlayPause();
+    }
 
     function seekToFrame(frameId) {
         var captureTimes = timelapse.getCaptureTimes();
         var frameNumber = captureTimes.indexOf(frameId);
         timelapse.seekToFrame(frameNumber);
-    } // send to timelapse
+    }
 
     function loadStory(storyId) {
         $.ajax({
@@ -190,6 +192,8 @@
         storyDict = {};
         loadStory("example");
         loadStory("las-vegas");
+        loadStory("lake-urmia");
+        loadStory("fires-at-night");
     });
     // todo: bind to pan events
 

@@ -23,7 +23,7 @@
             var lastFrameNumber = timelapse.getNumFrames() - 1;
             var captureTimes = timelapse.getCaptureTimes();
 
-            var frames = [];
+            var frames = [ captureTimes[lastFrameNumber] ];
             for (var i = 0; i < keyframes.length; i++) {
                 var frameId = keyframes[i]["StopFrame"];
                 if (typeof frameId !== "string") { continue; }
