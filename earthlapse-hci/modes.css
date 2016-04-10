@@ -1,18 +1,24 @@
 .earthlapse-modes-container {
-  visibility: hidden;
-  opacity: 0;
-  transition-duration: 1s;
-  transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
-  font-family: "Source Sans Pro", Helvetica, Arial, sans-serif;
+    visibility: hidden;
+    opacity: 0;
+    transition-duration: 1s;
+    transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
+    font-family: "Source Sans Pro", Helvetica, Arial, sans-serif;
 }
 
 body.earthlapse-modes-default .earthlapse-modes-default-container,
 body.earthlapse-modes-menu .earthlapse-modes-menu-container,
 body.earthlapse-modes-story .earthlapse-modes-story-container,
 body.earthlapse-modes-explore .earthlapse-modes-explore-container {
-  visibility: visible;
-  opacity: 1;
-  transform: none;
+    visibility: visible;
+    opacity: 1;
+    transform: none;
+}
+
+body.earthlapse-modes-default .earthlapse-modes-screen.earthlapse-modes-default-container,
+body.earthlapse-modes-menu .earthlapse-modes-screen.earthlapse-modes-menu-container,
+body.earthlapse-modes-story .earthlapse-modes-screen.earthlapse-modes-story-container {
+    z-index: 100;
 }
 
 /* Layout CSS
