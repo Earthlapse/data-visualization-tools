@@ -3,77 +3,123 @@
         if (e.mode !== "menu") { return; }
 
         // On selection of any menu item, initiate the story/exploration
-        $(".earthlapse-modes-menu-container").on("click touchstart", ".earthlapse-modes-menu-item", function (e) {
+        $(".earthlapse-modes-menu-container").on("click", ".earthlapse-modes-menu-item", function (e) {
             var $item = $(this);
-            var storyId = $item.data("storyid");
 
-            // User selected the special exploration tile
             if ($item.hasClass("earthlapse-modes-menu-explorebutton")) {
+                // User selected the special exploration tile
                 EarthlapseUI.Modes.changeModeTo("explore");
             } else {
+                var storyId = $item.data("storyId");
+
+                // Make sure the story is ready to be played
+                if (typeof storyId === "undefined" || storyId === null) {
+                    alert("Story not loaded yet");
+                    return;
+                }
+
                 EarthlapseUI.Stories.startStory(storyId);
                 EarthlapseUI.Modes.changeModeTo("story");
             }
         });
+
+        var $gallery = $(".earthlapse-stories-gallery");
+        var storyTiles = {};
+
+        function addStory(storyId) {
+            var title = "(Loading Story)";
+            var thumbnail = "http://placehold.it/250x150";
+
+            // Build tile
+            var $thumbnail = $("<img />").attr("src", thumbnail);
+            var $title = $("<div class=\"desc\" />").text(title);
+            var $img = $("<div class=\"img\" />").append($thumbnail, $title);
+            var $tile = $("<div class=\"ui-button earthlapse-modes-menu-item\" />").append($img);
+            storyTiles[storyId] = {
+                $thumbnail: $thumbnail,
+                $title: $title,
+                $dom: $tile
+            };
+
+            // Append tile to gallery
+            $gallery.append($tile);
+
+            // Load the story
+            EarthlapseUI.Stories.loadStory(storyId);
+        }
+
+        EarthlapseUI.bind("storyloaded", function (e) {
+            // Update tile with the story metadata
+            storyTiles[e.storyId].$title.text(e.title);
+            storyTiles[e.storyId].$thumbnail.attr("src", e.thumbnail);
+            storyTiles[e.storyId].$dom.data("storyId", e.storyId);
+        });
+
+        // Insert stories
+        addStory("las-vegas");
+        addStory("lake-urmia");
+        addStory("fires-at-night");
     });
 </script>
 <div class="earthlapse-modes-screen">
     <h2>Choose a screen to begin</h2>
 
-    <div class="ui-button earthlapse-modes-menu-item" data-storyid="las-vegas">
-        <div class="img">
-            <img src="http://thumbnails.cmucreatelab.org/thumbnail?root=http://earthengine.google.org/timelapse/data/20130507&boundsLTRB=239833.73508091227,522897.15176901396,243314.48721083216,524958.4096709508&width=250&height=150&frameTime=2.1">
-            <div class="desc">Las Vegas</div>
+    <div class="earthlapse-stories-gallery">
+        <!-- div class="ui-button earthlapse-modes-menu-item" data-storyid="las-vegas">
+            <div class="img">
+                <img src="http://thumbnails.cmucreatelab.org/thumbnail?root=http://earthengine.google.org/timelapse/data/20130507&boundsLTRB=239833.73508091227,522897.15176901396,243314.48721083216,524958.4096709508&width=250&height=150&frameTime=2.1">
+                <div class="desc">Las Vegas</div>
+            </div>
         </div>
-    </div>
 
-    <div class="ui-button earthlapse-modes-menu-item" data-storyid="lake-urmia">
-        <div class="img">
-            <img src="http://thumbnails.cmucreatelab.org/thumbnail?root=http://earthengine.google.org/timelapse/data/20130507&boundsLTRB=829953.5478804687,512969.2419359944,842765.3283798227,520556.2182004556&width=250&height=150&frameTime=1.5">
-            <div class="desc">Lake Urmia</div>
+        <div class="ui-button earthlapse-modes-menu-item" data-storyid="lake-urmia">
+            <div class="img">
+                <img src="http://thumbnails.cmucreatelab.org/thumbnail?root=http://earthengine.google.org/timelapse/data/20130507&boundsLTRB=829953.5478804687,512969.2419359944,842765.3283798227,520556.2182004556&width=250&height=150&frameTime=1.5">
+                <div class="desc">Lake Urmia</div>
+            </div>
         </div>
-    </div>
 
-    <div class="ui-button earthlapse-modes-menu-item" data-storyid="fires-at-night">
-        <div class="img">
-            <img src="http://thumbnails.cmucreatelab.org/thumbnail?root=http://earthengine.google.org/timelapse/data/20130507&boundsLTRB=69258.77206860541,209520.56620188005,1212884.3532619216,886761.3400647969&width=250&height=150&frameTime=1.6">
-            <div class="desc">Fire at Night</div>
+        <div class="ui-button earthlapse-modes-menu-item" data-storyid="fires-at-night">
+            <div class="img">
+                <img src="http://thumbnails.cmucreatelab.org/thumbnail?root=http://earthengine.google.org/timelapse/data/20130507&boundsLTRB=69258.77206860541,209520.56620188005,1212884.3532619216,886761.3400647969&width=250&height=150&frameTime=1.6">
+                <div class="desc">Fire at Night</div>
+            </div>
         </div>
-    </div>
 
-    <div class="ui-button earthlapse-modes-menu-item" data-storyid="example">
-        <div class="img">
-            <img src="http://placehold.it/250x150">
-            <div class="desc">Amazon Deforestation</div>
+        <div class="ui-button earthlapse-modes-menu-item" data-storyid="example">
+            <div class="img">
+                <img src="http://placehold.it/250x150">
+                <div class="desc">Amazon Deforestation</div>
+            </div>
         </div>
-    </div>
 
-    <div class="ui-button earthlapse-modes-menu-item" data-storyid="example">
-        <div class="img">
-            <img src="http://placehold.it/250x150">
-            <div class="desc">Columbia Glacier</div>
+        <div class="ui-button earthlapse-modes-menu-item" data-storyid="example">
+            <div class="img">
+                <img src="http://placehold.it/250x150">
+                <div class="desc">Columbia Glacier</div>
+            </div>
         </div>
-    </div>
 
-    <div class="ui-button earthlapse-modes-menu-item" data-storyid="example">
-        <div class="img">
-            <img src="http://placehold.it/250x150">
-            <div class="desc">Solar Panel in California</div>
+        <div class="ui-button earthlapse-modes-menu-item" data-storyid="example">
+            <div class="img">
+                <img src="http://placehold.it/250x150">
+                <div class="desc">Solar Panel in California</div>
+            </div>
         </div>
-    </div>
 
-    <div class="ui-button earthlapse-modes-menu-item" data-storyid="example">
-        <div class="img">
-            <img src="http://placehold.it/250x150">
-            <div class="desc">U.S. Solar</div>
+        <div class="ui-button earthlapse-modes-menu-item" data-storyid="example">
+            <div class="img">
+                <img src="http://placehold.it/250x150">
+                <div class="desc">U.S. Solar</div>
+            </div>
         </div>
-    </div>
 
-    <div class="ui-button earthlapse-modes-menu-item" data-storyid="example">
-        <div class="img">
-            <img src="http://placehold.it/250x150">
-            <div class="desc">U.S. Solar</div>
-        </div>
+        <div class="ui-button earthlapse-modes-menu-item" data-storyid="example">
+            <div class="img">
+                <img src="http://placehold.it/250x150">
+                <div class="desc">U.S. Solar</div>
+            </div>
+        </div -->
     </div>
 
     <div class="ui-button earthlapse-modes-menu-item earthlapse-modes-menu-explorebutton">
@@ -82,5 +128,4 @@
             <div class="desc">Explore</div>
         </div>
     </div>
-
 </div>

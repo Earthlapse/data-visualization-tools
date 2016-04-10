@@ -2,9 +2,9 @@
 
 (function($) {
     /* State information */
-    var index;     // Keyframe index in current story
-    var storyId;   // Current story's storyID,
-    var storyDict; // Maps storyId -> keyframeArray
+    var index;          // Keyframe index in current story
+    var storyId;        // Current story's storyID,
+    var storyDict = {}; // Maps storyId -> keyframeArray
 
     var defaultMap = "landsat-base";
     var maps, layers;
@@ -111,8 +111,13 @@
         $.ajax({
             url: "../../earthlapse-hci/stories/" + escape(storyId) + ".json",
             dataType: "json",
-            success: function(keyframes) {
-                storyDict[storyId] = keyframes
+            success: function (data) {
+                storyDict[storyId] = data.keyframes;
+                EarthlapseUI.trigger("storyloaded", {
+                    storyId: storyId,
+                    title: data.title,
+                    thumbnail: data.thumbnail
+                });
             }
         });
     }
@@ -161,12 +166,6 @@
             // Water Change
             "show-water-change": { $dom: $("#show-water-change") }
         };
-
-        storyDict = {};
-        loadStory("example");
-        loadStory("las-vegas");
-        loadStory("lake-urmia");
-        loadStory("fires-at-night");
     });
     // todo: bind to pan events
 
@@ -175,6 +174,7 @@
         nextKeyframe: nextKeyframe,
         prevKeyframe: prevKeyframe,
         startStory: startStory,
-        finishStory: finishStory
+        finishStory: finishStory,
+        loadStory: loadStory
     };
 } (jQuery));
