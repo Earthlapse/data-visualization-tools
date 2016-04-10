@@ -45,6 +45,9 @@
         }
 
         storyId = requestedStoryId;
+        EarthlapseUI.trigger("storystarted", {
+            storyId: storyId
+        });
 
         // Reset story mode
         clearMap();
@@ -55,8 +58,10 @@
         goToKeyframe(0);
     }
 
-    function endStory() {
-        EarthlapseUI.Modes.changeModeTo("menu");
+    function finishStory() {
+        EarthlapseUI.trigger("storyfinished", {
+            storyId: storyId
+        });
     }
 
     function goToKeyframe(newIndex) {
@@ -202,6 +207,6 @@
         nextKeyframe: nextKeyframe,
         prevKeyframe: prevKeyframe,
         startStory: startStory,
-        endStory: endStory
+        finishStory: finishStory
     };
 } (jQuery));

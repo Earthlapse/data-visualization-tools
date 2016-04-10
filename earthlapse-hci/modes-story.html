@@ -3,57 +3,14 @@
         if (e.mode !== "story") { return; }
 
         var $screen = $(".earthlapse-modes-screen.earthlapse-modes-story-container");
+        var $explain = $screen.find(".earthlapse-stories-explain");
 
         function bindPrimaryNav() {
             // Button: Back to menu
             var $backToMenu = $screen.find(".earthlapse-modes-homebutton");
             $backToMenu.on("click", function(e) {
                 e.preventDefault();
-                EarthlapseUI.Modes.changeModeTo("menu");
-                EarthlapseUI.Stories.endStory();
-            });
-        }
-
-        function bindViewport() {
-            EarthlapseUI.bind("storyenteredview", function (e) {
-                $(".earthlapse-stories-explain").show();
-            });
-
-            EarthlapseUI.bind("storyexitedview", function (e) {
-                $(".earthlapse-stories-explain").hide();
-            });
-        }
-
-        function bindExplain() {
-            // Button: Prev keyframe
-            var $explainBack = $screen.find(".earthlapse-stories-explain-nav-back");
-            $explainBack.on("click", function(e) {
-                e.preventDefault();
-                EarthlapseUI.Stories.prevKeyframe();
-            });
-
-            // Button: Next keyframe
-            var $explainNext = $screen.find(".earthlapse-stories-explain-nav-next");
-            $explainNext.on("click", function(e) {
-                e.preventDefault();
-                EarthlapseUI.Stories.nextKeyframe();
-            });
-
-            // Button: Finish story
-            var $explainFinish = $screen.find(".earthlapse-stories-explain-nav-done");
-            $explainFinish.on("click", function(e) {
-                e.preventDefault();
-                EarthlapseUI.Modes.changeModeTo("menu");
-                EarthlapseUI.Stories.endStory();
-            });
-
-            // Hide buttons if we are at keyframe limits
-            var $explainText = $screen.find(".earthlapse-stories-explain-text");
-            EarthlapseUI.bind("storykeyframechanged", function (e) {
-                $explainText.text(e.text);
-                $explainNext[e.isLastKeyframe ? "hide" : "show"]();
-                $explainBack[e.isFirstKeyframe ? "hide" : "show"]();
-                $explainFinish[e.isLastKeyframe ? "show" : "hide"]();
+                EarthlapseUI.Stories.finishStory();
             });
         }
 
@@ -84,22 +41,101 @@
             });
         }
 
+        function bindExplain() {
+            var expireExplainContent = function () {
+                var $oldContent = $explain.find(".earthlapse-stories-explain-content");
+                $oldContent.addClass("earthlapse-stories-explain-content-exit");
+                setTimeout(function () {
+                    $oldContent.remove();
+                }, 500);
+            };
+
+            var createExplainContent = function (e) {
+                // Explain Text
+                var $text = $("<div class=\"earthlapse-stories-explain-text\" />").text(e.text);
+
+                // Explain Nav
+                var $nav = $("<div class=\"earthlapse-stories-explain-nav\" />");
+                if (!e.isFirstKeyframe) {
+                    $nav.append("<button class=\"ui-button earthlapse-stories-explain-nav-button earthlapse-stories-explain-nav-back\">&larr; Back</button>");
+                }
+                if (!e.isLastKeyframe) {
+                    $nav.append("<button class=\"ui-button earthlapse-stories-explain-nav-button earthlapse-stories-explain-nav-next\">Next &rarr;</button>");
+                } else {
+                    $nav.append("<button class=\"ui-button earthlapse-stories-explain-nav-button earthlapse-stories-explain-nav-next earthlapse-stories-explain-nav-done\">Finish</button>");
+                }
+
+                return $("<div class=\"earthlapse-stories-explain-content\" />").append($text, $nav);
+            };
+
+            // Explain Nav Buttons
+            $explain.on("click", ".earthlapse-stories-explain-nav-button",  function (e) {
+                e.preventDefault();
+
+                var $this = $(this);
+                $explain.removeClass("earthlapse-stories-explain-prev earthlapse-stories-explain-next");
+
+                if ($this.hasClass("earthlapse-stories-explain-nav-done")) {
+                    // End story
+                    EarthlapseUI.Stories.finishStory();
+                    return;
+                }
+
+                if ($this.hasClass("earthlapse-stories-explain-nav-back")) {
+                    // Prepare content for exit
+                    $explain.addClass("earthlapse-stories-explain-prev");
+
+                    // Prev keyframe
+                    EarthlapseUI.Stories.prevKeyframe();
+                    return;
+                }
+
+                if ($this.hasClass("earthlapse-stories-explain-nav-next")) {
+                    // Prepare content for exit
+                    $explain.addClass("earthlapse-stories-explain-next");
+
+                    // Next keyframe
+                    EarthlapseUI.Stories.nextKeyframe();
+                    return;
+                }
+            });
+
+            EarthlapseUI.bind("storykeyframechanged", function (e) {
+                // Exit old content
+                expireExplainContent();
+
+                // Enter new content
+                $explain.append(createExplainContent(e).addClass("earthlapse-stories-explain-content-enter"));
+            });
+
+            EarthlapseUI.bind("storyenteredview", function (e) {
+                $(".earthlapse-stories-explain-content").removeClass("earthlapse-stories-explain-content-enter");
+            });
+
+            EarthlapseUI.bind("storystarted", function () {
+                // Reset UI
+                $explain.removeClass("earthlapse-stories-explain-prev earthlapse-stories-explain-next");
+                $explain.empty();
+            });
+
+            EarthlapseUI.bind("storyfinished", function () {
+                // Exit content
+                expireExplainContent();
+
+                // Return to menu
+                EarthlapseUI.Modes.changeModeTo("menu");
+            });
+        }
+
         bindPrimaryNav();
-        bindViewport();
-        bindExplain();
         bindTimeline();
+        bindExplain();
     });
+
 </script>
 <div class="earthlapse-modes-screen">
     <button class="ui-button earthlapse-modes-homebutton">Menu</button>
-    <div class="earthlapse-stories-explain">
-        <div class="earthlapse-stories-explain-text"></div>
-        <div class="earthlapse-stories-explain-nav">
-            <button class="earthlapse-stories-explain-nav-button earthlapse-stories-explain-nav-back">&larr; Back</button>
-            <button class="earthlapse-stories-explain-nav-button earthlapse-stories-explain-nav-next">Next &rarr;</button>
-            <button class="earthlapse-stories-explain-nav-button earthlapse-stories-explain-nav-done">Finish</button>
-        </div>
-    </div>
+    <div class="earthlapse-stories-explain"></div>
     <div class="earthlapse-stories-timeline">
         <div class="earthlapse-stories-timeline-wrap">
             <span class="earthlapse-stories-timeline-line"></span>
