@@ -69,7 +69,13 @@
             };
 
             // Explain Nav Buttons
-            $explain.on("click", ".earthlapse-stories-explain-nav-button",  function (e) {
+            $explain.on("mousedown", ".earthlapse-stories-explain-nav-button", function (e) {
+                $(this).addClass("hasfocus");
+            }).on("mouseup", ".earthlapse-stories-explain-nav-button", function (e) {
+                var $this = $(this);
+
+                // If this button had focus, then we should execute an action
+                if (!$this.hasClass("hasfocus")) { return; }
                 e.preventDefault();
 
                 var $this = $(this);

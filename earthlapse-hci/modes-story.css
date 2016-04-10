@@ -106,7 +106,7 @@
     transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
 }
 
-.earthlapse-stories-explain-nav-button:focus,
+.earthlapse-stories-explain-nav-button.hasfocus,
 .earthlapse-stories-explain-nav-button:active {
     background: #000000;
     color: #ffffff;
