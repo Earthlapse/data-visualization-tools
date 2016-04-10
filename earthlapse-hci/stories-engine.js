@@ -52,7 +52,7 @@
         // Reset story mode
         clearMap();
         clearLayers();
-        EarthlapseUI.Stories.Timeline.build(storyDict[requestedStoryId]);
+        EarthlapseUI.Stories.Timeline.setKeyframes(storyDict[requestedStoryId]);
 
         // Rewind story
         goToKeyframe(0);
@@ -87,20 +87,7 @@
         flyToBox(keyframe['BoundingBox']);
         setMap(keyframe["Map"]);
         setLayers(keyframe["Layers"]);
-
-        // FIXME: must wait for captureTimes to update; possible race condition
-        setTimeout(function () {
-            // Should we seek to another frame?
-            if (keyframe['StopFrame'] !== null) {
-                pause();
-                seekToFrame(keyframe['StopFrame']);
-            }
-
-            // Should we pause the timelapse?
-            if (!keyframe["Pause"]) {
-                play();
-            }
-        }, 0);
+        EarthlapseUI.Stories.Timeline.setStopFrame(keyframe['StopFrame'], keyframe['Pause']);
     }
 
     function nextKeyframe() {
@@ -118,25 +105,6 @@
     function flyToBox(boundingBox) {
         EarthlapseUI.Stories.Viewport.setBoundingBox(boundingBox);
         timelapse.setNewView({ bbox: boundingBox });
-    }
-
-    function play() {
-        // Prefer handlePlayPause() over play() and pause()
-        if (!timelapse.isPaused() || timelapse.isDoingLoopingDwell()) { return; }
-        timelapse.handlePlayPause();
-    }
-
-    function pause() {
-        // FIXME: timelapse.pause() causes indefinite loop dwelling for some reason
-        // Prefer handlePlayPause() over play() and pause()
-        if (timelapse.isPaused() && !timelapse.isDoingLoopingDwell()) { return; }
-        timelapse.handlePlayPause();
-    }
-
-    function seekToFrame(frameId) {
-        var captureTimes = timelapse.getCaptureTimes();
-        var frameNumber = captureTimes.indexOf(frameId);
-        timelapse.seekToFrame(frameNumber);
     }
 
     function loadStory(storyId) {
