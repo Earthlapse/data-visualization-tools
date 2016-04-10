@@ -55,7 +55,7 @@
         $.ajax({
             url: "../../earthlapse-hci/modes-" + escape(mode) + ".html",
             success: function(results) {
-                // Add HTML to page
+                // Append screen to page
                 var $results = $(results);
                 var $screen = $results.filter(".earthlapse-modes-screen");
                 $screen.addClass("earthlapse-modes-container earthlapse-modes-" + escape(mode) + "-container");
@@ -100,12 +100,23 @@
         $explore.addClass("earthlapse-modes-container earthlapse-modes-explore-container");
         $backToMenu.addClass("earthlapse-modes-explore-container");
 
+        // Disable panning/zooming on screens
+        document.addEventListener("touchmove", function (e) {
+            var $screen = $(".earthlapse-modes-screen").not(function () {
+                var $this = $(this);
+                return $this.hasClass("earthlapse-modes-screen-passthru") || $this.css("visibility") === "hidden";
+            });
+            if ($screen.length === 0) { return; }
+            timelapse.setTargetView(timelapse.getView());
+            e.stopImmediatePropagation();
+        }, true);
+
         // Load other Earthlapse modes
         loadScreen("default");
         loadScreen("menu");
 
         // Set up timeout to revert to default mode
-        $(window).on("click touchstart", function() {
+        $(window).on("click touchstart touchmove", function() {
             resetRevertTimeout();
         });
     });
