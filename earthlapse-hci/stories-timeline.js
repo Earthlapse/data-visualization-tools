@@ -12,14 +12,18 @@
     function update() {
         // passed argument might be out of date
         var currentTime = timelapse.getCurrentTime();
+        var currentFrameNumber = timelapse.getCurrentFrameNumber();
 
-        var lastFrameTime = timelapse.frameNumberToTime(timelapse.getNumFrames() - 1);
+        var lastFrameNumber = timelapse.getNumFrames() - 1;
+        var lastFrameTime = timelapse.frameNumberToTime(lastFrameNumber);
         currentTime = currentTime > lastFrameTime ? lastFrameTime : currentTime;
         var fps = timelapse.getFps();
 
         EarthlapseUI.trigger("storytimeupdate", {
             lastFrameTime: lastFrameTime,
+            lastFrameNumber: lastFrameNumber,
             currentTime: currentTime,
+            currentFrameNumber: currentFrameNumber,
             fps: fps
         });
     }
@@ -50,8 +54,8 @@
         var captureTimes = timelapse.getCaptureTimes();
 
         var frames = [ captureTimes[lastFrameNumber] ];
-        for (var i = 0; i < keyframes.length; i++) {
-            var frameId = keyframes[i]["StopFrame"];
+        for (var i = captureTimes.length - 1; i >= 0; i -= Math.ceil(captureTimes.length / 10)) {
+            var frameId = captureTimes[i];
             if (typeof frameId !== "string") { continue; }
             if (frames.indexOf(frameId) >= 0) { continue; }
             frames.push(frameId);
@@ -59,7 +63,8 @@
         frames = frames.map(function (frameId) {
             var frameNumber = captureTimes.indexOf(frameId);
             return { frameId: frameId, frameNumber: frameNumber };
-        });
+        })
+        frames.sort(function (a, b) { return a.frameNumber - b.frameNumber; });;
 
         // Fix stop frame
         setStopFrame(stopFrame, doPause);
@@ -68,6 +73,8 @@
             lastFrameNumber: lastFrameNumber,
             frames: frames
         });
+
+        update();
     }
 
     function play() {

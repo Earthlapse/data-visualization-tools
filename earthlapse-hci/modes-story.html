@@ -15,21 +15,75 @@
         }
 
         function bindTimeline() {
+            var $labelContainer = $(".earthlapse-stories-timeline-labels");
             var $line = $(".earthlapse-stories-timeline-line");
+
+            var timelineLabels = [];
+            var prevFrameNumber = -1;
+
             EarthlapseUI.bind("storytimeupdate", function (e) {
+                if (timelineLabels.length === 0) { return; }
+
+                // Animate timeline labels
+                for (var i = 0; i < timelineLabels.length; i++) {
+                    var frameNumber = timelineLabels[i].frameNumber;
+                    if ((prevFrameNumber < frameNumber && frameNumber <= e.currentFrameNumber)
+                     || (e.currentFrameNumber < prevFrameNumber && prevFrameNumber < frameNumber)
+                     || (e.currentFrameNumber < prevFrameNumber && frameNumber <= e.currentFrameNumber)) {
+                        timelineLabels[i].animReady = false;
+                        timelineLabels[i].blurRequested = false;
+                        timelineLabels[i].$label.addClass("hasfocus");
+                    } else if (frameNumber !== e.currentFrameNumber) {
+                        timelineLabels[i].blur();
+                    }
+                }
+                prevFrameNumber = e.currentFrameNumber;
+
+                // Update line length
                 $line.css({
                     "right": (1 - e.currentTime / e.lastFrameTime) * 100 + "%",
                     "transition-duration": (1 / e.fps) + "s"
                 });
             });
 
-            var $labels = $(".earthlapse-stories-timeline-labels");
             EarthlapseUI.bind("storynewtimeline", function (e) {
-                $labels.empty();
-                for (var i = 0; i < e.frames.length; i++) {
+                $labelContainer.empty();
+                timelineLabels = [];
+                prevFrameNumber = -1;
+
+                var newLabel = function (frame) {
                     var $label = $("<span class=\"earthlapse-stories-timeline-labels-item\" />");
-                    $label.text(e.frames[i].frameId);
-                    $labels.append($label);
+
+                    var timelineLabel = {
+                        frameNumber: frame.frameNumber,
+                        $label: $label,
+                        animReady: true,
+                        blurRequested: false,
+                        blur: function () {
+                            if (!timelineLabel.animReady) {
+                                timelineLabel.blurRequested = true;
+                                return;
+                            }
+                            $label.removeClass("hasfocus");
+                            timelineLabel.blurRequested = false;
+                        }
+                    };
+                    timelineLabels.push(timelineLabel);
+
+                    $label.text(frame.frameId);
+                    $label.bind("transitionend", function () {
+                        timelineLabel.animReady = true;
+                        if (timelineLabel.blurRequested) {
+                            timelineLabel.blur();
+                        }
+                    });
+
+                    return $label;
+                };
+
+                for (var i = 0; i < e.frames.length; i++) {
+                    var $label = newLabel(e.frames[i]);
+                    $labelContainer.append($label);
 
                     var width = $label.width();
                     $label.css({
