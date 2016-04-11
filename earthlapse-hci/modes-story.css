@@ -26,12 +26,12 @@
 
 .earthlapse-stories-timeline-line {
     position: absolute;
-    top: -5px;
-    bottom: -5px;
+    top: -3px;
+    bottom: -3px;
     left: -12%;
     right: 100%;
     background: #1BA3B7;
-    box-shadow: 5px 5px 8px rgba(0,0,0,0.65);
+    box-shadow: 3px 3px 5px rgba(0,0,0,0.65);
     transition-timing-function: linear;
 }
 
@@ -92,26 +92,35 @@
     text-shadow: 5px 5px 15px rgba(0,0,0,0.65);
 }
 
-.earthlapse-stories-explain-nav{
+.earthlapse-stories-explain-nav {
     text-align: center;
-    vertical-align:middle;
+    transition-delay: 0.5s;
+    transition-duration: 0.5s;
 }
 
-.earthlapse-stories-explain-nav h3{
-    margin-bottom: 0px;
-    margin-top: 10px;
+.earthlapse-stories-explain-content-enter .earthlapse-stories-explain-nav {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.earthlapse-stories-explain-nav-indicator {
     font-size: 24px;
     display: inline-block;
+    margin: 10px auto;
+    text-shadow: 5px 5px 15px rgba(0,0,0,0.65);
 }
+
 .earthlapse-stories-explain-nav-button {
+    font: inherit;
     font-size: 24px;
+    vertical-align: middle;
     border-radius: 10px;
     background: #ffffff;
     color: #000000;
     border: 0;
     padding: 10px;
     width: 130px;
-    box-shadow: 5px 5px 15px rgba(0,0,0,0.65);
+    box-shadow: 5px 5px 15px rgba(0,0,0,0.50);
     outline: none;
     transition-duration: 0.2s;
     transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
