@@ -77,6 +77,7 @@
         // e.g. so that they can show/hide buttons
         EarthlapseUI.trigger("storykeyframechanged", {
             text: keyframe["Text"],
+            length:storyDict[storyId].length,
             index: index,
             isFirstKeyframe: index - 1 < 0,
             isLastKeyframe: index + 1 > storyDict[storyId].length - 1

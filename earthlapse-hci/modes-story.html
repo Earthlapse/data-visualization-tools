@@ -59,6 +59,8 @@
                 if (!e.isFirstKeyframe) {
                     $nav.append("<button class=\"ui-button earthlapse-stories-explain-nav-button earthlapse-stories-explain-nav-back\">&larr; Back</button>");
                 }
+                $nav.append("<h3>"+(e.index+1)+"/"+e.length+"</h3>");
+
                 if (!e.isLastKeyframe) {
                     $nav.append("<button class=\"ui-button earthlapse-stories-explain-nav-button earthlapse-stories-explain-nav-next\">Next &rarr;</button>");
                 } else {
