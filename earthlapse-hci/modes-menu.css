@@ -6,4 +6,25 @@
 .earthlapse-modes-menu-container div.desc {
     padding: 15px;
     text-align: center;
+    font-weight: 400;
+}
+
+.earthlapse-modes-menu-container .earthlapse-modes-menu-explore::before {
+    content: 'or';
+    font-size: 36px;
+    display: block;
+    margin: 36px;
+}
+
+.earthlapse-modes-menu-container .earthlapse-modes-menu-explorebutton {
+    font: inherit;
+    font-size: 36px;
+    text-transform: lowercase;
+    background: #7f7f7f;
+    padding: 20px 50px;
+    border: 0;
+    border-radius: 20px;
+    color: #fff;
+    outline: none;
+    font-weight: 300;
 }
