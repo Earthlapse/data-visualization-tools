@@ -117,7 +117,7 @@
         loadScreen("story");
 
         // Set up timeout to revert to default mode
-        $(window).on("click touchstart touchmove", function() {
+        $(document).on("click touchstart touchmove", function () {
             resetRevertTimeout();
         });
     });
