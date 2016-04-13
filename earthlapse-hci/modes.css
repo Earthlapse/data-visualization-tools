@@ -36,13 +36,14 @@ body.earthlapse-modes-story .earthlapse-modes-screen.earthlapse-modes-story-cont
 }
 
 .earthlapse-modes-screen h1 {
-    padding: 16px;
+    font-weight: 300;
     font-size: 96px;
+    margin: 0;
 }
 
 .earthlapse-modes-screen h2 {
-    padding: 16px;
     font-size: 48px;
+    margin: 1em 0;
 }
 
 .earthlapse-modes-screen a {
