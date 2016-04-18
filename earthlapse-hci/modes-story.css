@@ -51,6 +51,7 @@
     transition-property: opacity, transform;
     transition-duration: 3s;
     transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
+    text-transform: uppercase;
 }
 
 .earthlapse-stories-timeline-labels-item.hasfocus {

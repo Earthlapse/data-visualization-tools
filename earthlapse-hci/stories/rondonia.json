@@ -1,6 +1,19 @@
 {
     "title": "Rondonia",
     "thumbnail": "http://thumbnails.cmucreatelab.org/thumbnail?root=http://earthengine.google.org/timelapse/data/20130507&boundsLTRB=431237.24003448826,712545.3934033867,432788.3936166258,713467.8321533278&width=250&height=150&frameTime=1.5",
+    "timelineLabels": {
+        "1985": "1985",
+        "1988": "1988",
+        "1991": "1991",
+        "1994": "1994",
+        "1997": "1997",
+        "2000": "2000",
+        "2003": "2003",
+        "2006": "2006",
+        "2009": "2009",
+        "2012": "2012",
+        "2015": "2015"
+    },
     "keyframes": [
         {
             "Text": "As the world’s appetite for food continues to increase, the need arises to grow food in places that have a lot of water already. This is the Amazon rainforest.",

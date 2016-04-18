@@ -3,7 +3,7 @@
 (function($) {
     /* DOM reference cache */
     var $line;
-    var keyframes = [];
+    var labels = [];
 
     var stopFrame = 0;
     var doPause = false;
@@ -44,8 +44,8 @@
         }
     }
 
-    function setKeyframes(newKeyframes) {
-        keyframes = newKeyframes;
+    function setLabels(newLabels) {
+        labels = newLabels;
         build();
     }
 
@@ -53,17 +53,16 @@
         var lastFrameNumber = timelapse.getNumFrames() - 1;
         var captureTimes = timelapse.getCaptureTimes();
 
-        var frames = [ captureTimes[lastFrameNumber] ];
-        for (var i = captureTimes.length - 1; i >= 0; i -= Math.ceil(captureTimes.length / 10)) {
-            var frameId = captureTimes[i];
-            if (typeof frameId !== "string") { continue; }
-            if (frames.indexOf(frameId) >= 0) { continue; }
-            frames.push(frameId);
-        }
-        frames = frames.map(function (frameId) {
+        var frames = [];
+        for (var frameId in labels) {
             var frameNumber = captureTimes.indexOf(frameId);
-            return { frameId: frameId, frameNumber: frameNumber };
-        })
+            var label = labels[frameId];
+            frames.push({
+                frameId: frameId,
+                frameNumber: frameNumber,
+                label: label,
+            });
+        }
         frames.sort(function (a, b) { return a.frameNumber - b.frameNumber; });;
 
         // Fix stop frame
@@ -103,7 +102,7 @@
 
     // Expose EarthlapseUI.Stories.Timeline API
     EarthlapseUI.Stories.Timeline = {
-        setKeyframes: setKeyframes,
+        setLabels: setLabels,
         setStopFrame: setStopFrame,
         build: build,
         pause: pause,
