@@ -2,25 +2,24 @@
     EarthlapseUI.bind("loadedscreen", function (e) {
         if (e.mode !== "menu") { return; }
 
-        // On selection of any menu item, initiate the story/exploration
+        // On selection of any tile, initiate the story
         $(".earthlapse-modes-menu-container").on("click", ".earthlapse-modes-menu-item", function (e) {
             var $item = $(this);
+            var storyId = $item.data("storyId");
 
-            if ($item.hasClass("earthlapse-modes-menu-explorebutton")) {
-                // User selected the special exploration tile
-                EarthlapseUI.Modes.changeModeTo("explore");
-            } else {
-                var storyId = $item.data("storyId");
-
-                // Make sure the story is ready to be played
-                if (typeof storyId === "undefined" || storyId === null) {
-                    alert("Story not loaded yet");
-                    return;
-                }
-
-                EarthlapseUI.Stories.startStory(storyId);
-                EarthlapseUI.Modes.changeModeTo("story");
+            // Make sure the story is ready to be played
+            if (typeof storyId === "undefined" || storyId === null) {
+                alert("Story not loaded yet");
+                return;
             }
+
+            EarthlapseUI.Stories.startStory(storyId);
+            EarthlapseUI.Modes.changeModeTo("story");
+        });
+
+        // On selection of explore button, initiate exploration mode
+        $(".earthlapse-modes-menu-container").on("click", ".earthlapse-modes-menu-explorebutton", function (e) {
+            EarthlapseUI.Modes.changeModeTo("explore");
         });
 
         var $gallery = $(".earthlapse-stories-gallery");
@@ -59,10 +58,11 @@
         addStory("las-vegas");
         addStory("lake-urmia");
         addStory("fires-at-night");
+        addStory("rondonia");
     });
 </script>
 <div class="earthlapse-modes-screen">
-    <h2>Choose a screen to begin</h2>
+    <h2>Choose a story to begin</h2>
 
     <div class="earthlapse-stories-gallery">
         <!-- div class="ui-button earthlapse-modes-menu-item" data-storyid="las-vegas">
@@ -122,10 +122,7 @@
         </div -->
     </div>
 
-    <div class="ui-button earthlapse-modes-menu-item earthlapse-modes-menu-explorebutton">
-        <div class="img">
-            <img src="http://placehold.it/250x150">
-            <div class="desc">Explore</div>
-        </div>
+    <div class="earthlapse-modes-menu-explore">
+        <button class="ui-button earthlapse-modes-menu-explorebutton">Explore on your own</button>
     </div>
 </div>

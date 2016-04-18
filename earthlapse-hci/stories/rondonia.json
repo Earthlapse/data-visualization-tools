@@ -1,0 +1,58 @@
+{
+    "title": "Rondonia",
+    "thumbnail": "http://thumbnails.cmucreatelab.org/thumbnail?root=http://earthengine.google.org/timelapse/data/20130507&boundsLTRB=431237.24003448826,712545.3934033867,432788.3936166258,713467.8321533278&width=250&height=150&frameTime=1.5",
+    "keyframes": [
+        {
+            "Text": "As the world’s appetite for food continues to increase, the need arises to grow food in places that have a lot of water already. This is the Amazon rainforest.",
+            "BoundingBox": {
+                "xmin": 377841.72658216825,
+                "xmax": 540326.553338555,
+                "ymin": 663861.857162678,
+                "ymax": 747351.482162678
+            },
+            "Pause": true,
+            "StopFrame": "1984",
+            "Layers": [],
+            "Map": "landsat-base"
+        },
+        {
+            "Text": "This is the Brazilian State of Rondonia located in the middle of the Amazon rainforest.  In the year 1984, the land starts off almost entirely dark green. All the dark green is rainforest, but if you look closely you can also see faint brown areas in the middle of the forest. These areas are the beginnings of roads and farmland.",
+            "BoundingBox": {
+                "xmin": 431115.2064908745,
+                "xmax": 432910.42716023966,
+                "ymin": 712545.3934033867,
+                "ymax": 713467.8321533278
+            },
+            "Pause": true,
+            "StopFrame": "1984",
+            "Layers": [],
+            "Map": "landsat-base"
+        },
+        {
+            "Text": "As we move forward in time, the number of roads increases and lighter patches of green appear in the middle of the rainforest. These areas represent new farmland and roads built to service the land.",
+            "BoundingBox": {
+                "xmin": 431115.2064908745,
+                "xmax": 432910.42716023966,
+                "ymin": 712545.3934033867,
+                "ymax": 713467.8321533278
+            },
+            "Pause": false,
+            "StopFrame": "1984",
+            "Layers": [],
+            "Map": "landsat-base"
+        },
+        {
+            "Text": "By 2015, much of the Amazon rainforest has been turned into farmland. Most of this farming supports soybeans and grazing cattle for beef and soy exports. These exports are sent all over the world.",
+            "BoundingBox": {
+                "xmin": 429742.0630747861,
+                "xmax": 434283.5705763281,
+                "ymin": 711839.8307292034,
+                "ymax": 714173.394827511
+            },
+            "Pause": false,
+            "StopFrame": null,
+            "Layers": [],
+            "Map": "landsat-base"
+        }
+    ]
+}

@@ -1,0 +1,14 @@
+.earthlapse-modes-default-container h2 {
+    font-size: 400%;
+    margin: 0.5em 0;
+}
+
+.earthlapse-modes-default-content {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 21em;
+    margin: auto;
+}

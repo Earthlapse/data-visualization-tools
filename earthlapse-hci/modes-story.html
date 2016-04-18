@@ -110,9 +110,14 @@
 
                 // Explain Nav
                 var $nav = $("<div class=\"earthlapse-stories-explain-nav\" />");
+                var $indicator = $("<h3 class=\"earthlapse-stories-explain-nav-indicator\" />");
+                $indicator.text((e.index+1) + "/" + e.length);
+                $nav.append($indicator);
+
                 if (!e.isFirstKeyframe) {
                     $nav.append("<button class=\"ui-button earthlapse-stories-explain-nav-button earthlapse-stories-explain-nav-back\">&larr; Back</button>");
                 }
+
                 if (!e.isLastKeyframe) {
                     $nav.append("<button class=\"ui-button earthlapse-stories-explain-nav-button earthlapse-stories-explain-nav-next\">Next &rarr;</button>");
                 } else {
@@ -202,4 +207,5 @@
             <div class="earthlapse-stories-timeline-labels"></div>
         </div>
     </div>
+    <div class="googleLogo googleLogo-touchFriendly">Google Earth Engine</div>
 </div>
