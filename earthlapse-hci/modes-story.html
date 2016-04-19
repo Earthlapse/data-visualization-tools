@@ -28,13 +28,16 @@
                 for (var i = 0; i < timelineLabels.length; i++) {
                     var minFrameNumber = timelineLabels[i].minFrameNumber;
                     var maxFrameNumber = timelineLabels[i].maxFrameNumber;
+
                     if ((prevFrameNumber < minFrameNumber && minFrameNumber <= e.currentFrameNumber)
-                     || (e.currentFrameNumber < prevFrameNumber && prevFrameNumber < minFrameNumber)
-                     || (minFrameNumber <= e.currentFrameNumber && e.currentFrameNumber < prevFrameNumber)) {
+                    || (e.currentFrameNumber < prevFrameNumber && prevFrameNumber < minFrameNumber)
+                    || (minFrameNumber <= e.currentFrameNumber && e.currentFrameNumber < prevFrameNumber)) {
                         timelineLabels[i].animReady = false;
                         timelineLabels[i].blurRequested = false;
                         timelineLabels[i].$label.addClass("hasfocus");
-                    } else if (e.currentFrameNumber < minFrameNumber || maxFrameNumber < e.currentFrameNumber) {
+                    }
+
+                    if (e.currentFrameNumber < minFrameNumber || maxFrameNumber < e.currentFrameNumber) {
                         timelineLabels[i].blur();
                     }
                 }
