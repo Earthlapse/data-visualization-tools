@@ -14,10 +14,6 @@
         // If mode isn't chnaging, do nothing
         if (currentMode === mode) { return; }
 
-        // Record mode state change
-        var oldMode = currentMode;
-        var currentMode = mode;
-
         // Enable new mode
         var $body = $("body");
         $body.removeClass("earthlapse-modes-default earthlapse-modes-story earthlapse-modes-explore earthlapse-modes-menu");
@@ -39,6 +35,10 @@
                 mode = "default";
                 break;
         }
+
+        // Record mode state change
+        var oldMode = currentMode;
+        currentMode = mode;
 
         // Trigger event handlers
         EarthlapseUI.trigger("changemode", {
