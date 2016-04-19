@@ -6,8 +6,6 @@
     var storyId;        // Current story's storyID,
     var storyDict = {}; // Maps storyId -> story metadata, labels, and keyframes
 
-    var activeLayers = [];
-
     var defaultMap = "landsat-base";
     var maps, layers;
 
