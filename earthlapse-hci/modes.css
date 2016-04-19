@@ -103,6 +103,10 @@ body.earthlapse-modes-explore .presentationSlider {
     display: none;
 }
 
+.player .controls {
+    z-index: 10;
+}
+
 body.earthlapse-modes .vector-legend {
     top: 30px;
     left: 120px !important;
