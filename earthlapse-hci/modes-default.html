@@ -3,27 +3,39 @@
         if (e.mode !== "default") { return; }
 
         EarthlapseUI.bind("changemode", function (e) {
-            if (e.mode !== "default") { return; }
+            console.log(e);
+            if (e.mode !== "default" || e.oldMode === "default") { return; }
 
             // Reset exploration mode
             $("#timeMachine .thumbnail_highlight").removeClass("thumbnail_highlight");
 
-            // Set Himawari bounding box
+            // Himawari viewport
             var himawariBoundingBox = {
                 xmin: 427281.96650542633,
                 xmax: 1522596.4544802196,
                 ymin: 719301.378314219,
                 ymax: 1335415.77780004
             };
-
-            // Configure timelapse for Himawari Earth animation
-            timelapse.setPlaybackRate(Math.abs(timelapse.getPlaybackRate()));
-            timelapse.play();
-            timelapse.setLoopPlayback(true);
             var himawariView = { bbox: himawariBoundingBox };
-            loadHimawari();
+
+            // Enable Himawari layer
+            $("#show-himawari").prop("checked", false);
+
+            // Disable VIIRS layer (compatibility issues)
+            if ($("#show-viirs").prop('checked')) {
+                $("#show-viirs").click();
+            }
+
+            // Reset timelapse for Himawari Earth animation
+            timelapse.setPlaybackRate(defaultPlaybackSpeed);
+            timelapse.setLoopPlayback(true);
+            timelapse.seek(0);
             timelapse.stopParabolicMotion();
-            timelapse.setNewView(himawariView, true, null, null);
+            timelapse.warpToBoundingBox(himawariView);
+
+            // Show Himawari layer
+            loadHimawari();
+            timelapse.setNewView(himawariView, false, true, null);
         });
 
         // On any click, go to menu page
