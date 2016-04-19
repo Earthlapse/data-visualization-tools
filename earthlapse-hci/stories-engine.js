@@ -6,28 +6,22 @@
     var storyId;        // Current story's storyID,
     var storyDict = {}; // Maps storyId -> story metadata, labels, and keyframes
 
+    var activeLayers = [];
+
     var defaultMap = "landsat-base";
     var maps, layers;
 
     /* Functions */
     function setLayers(requestedLayers) {
-        clearLayers();
-        for (var i = 0; i < requestedLayers.length; i++) {
-            enableLayer(requestedLayers[i]);
+        for (var key in layers) {
+            var $layerToggle = layers[key].$dom;
+            if (requestedLayers.indexOf(key) < 0 === !$layerToggle.prop("checked")) { continue; }
+            $layerToggle.click();
         }
-    }
-
-    function enableLayer(layerName) {
-        layers[layerName].$dom.click();
     }
 
     function clearLayers() {
-        for (var key in layers) {
-            var $layerToggle = layers[key].$dom;
-            if ($layerToggle.prop("checked")) {
-                $layerToggle.click();
-            }
-        }
+        setLayers([]);
     }
 
     function setMap(mapName) {
