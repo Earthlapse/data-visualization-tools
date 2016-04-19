@@ -4,7 +4,7 @@
     /* State information */
     var index;          // Keyframe index in current story
     var storyId;        // Current story's storyID,
-    var storyDict = {}; // Maps storyId -> keyframeArray
+    var storyDict = {}; // Maps storyId -> story metadata, labels, and keyframes
 
     var defaultMap = "landsat-base";
     var maps, layers;
@@ -52,7 +52,7 @@
         // Reset story mode
         clearMap();
         clearLayers();
-        EarthlapseUI.Stories.Timeline.setKeyframes(storyDict[requestedStoryId]);
+        EarthlapseUI.Stories.Timeline.setLabels(storyDict[requestedStoryId].timelineLabels);
 
         // Rewind story
         goToKeyframe(0);
@@ -66,21 +66,21 @@
 
     function goToKeyframe(newIndex) {
         // Check keyframe index bounds
-        if (newIndex < 0 || newIndex > storyDict[storyId].length - 1) {
+        if (newIndex < 0 || newIndex > storyDict[storyId].keyframes.length - 1) {
             throw "[Earthlapse.Stories] Keyframe index " + newIndex + " is out of bounds";
         }
 
         index = newIndex;
-        var keyframe = storyDict[storyId][index];
+        var keyframe = storyDict[storyId].keyframes[index];
 
         // Notify DOM listeners that the current keyframe has changed
         // e.g. so that they can show/hide buttons
         EarthlapseUI.trigger("storykeyframechanged", {
             text: keyframe["Text"],
-            length:storyDict[storyId].length,
+            length: storyDict[storyId].keyframes.length,
             index: index,
             isFirstKeyframe: index - 1 < 0,
-            isLastKeyframe: index + 1 > storyDict[storyId].length - 1
+            isLastKeyframe: index + 1 > storyDict[storyId].keyframes.length - 1
         });
 
         // Prepare scene
@@ -113,7 +113,7 @@
             url: "../../earthlapse-hci/stories/" + escape(storyId) + ".json",
             dataType: "json",
             success: function (data) {
-                storyDict[storyId] = data.keyframes;
+                storyDict[storyId] = data;
                 EarthlapseUI.trigger("storyloaded", {
                     storyId: storyId,
                     title: data.title,

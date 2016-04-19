@@ -1,6 +1,19 @@
 {
     "title": "Lake Urmia",
     "thumbnail": "http://thumbnails.cmucreatelab.org/thumbnail?root=http://earthengine.google.org/timelapse/data/20130507&boundsLTRB=829953.5478804687,512969.2419359944,842765.3283798227,520556.2182004556&width=250&height=150&frameTime=1.5",
+    "timelineLabels": {
+        "1985": "1985",
+        "1988": "1988",
+        "1991": "1991",
+        "1994": "1994",
+        "1997": "1997",
+        "2000": "2000",
+        "2003": "2003",
+        "2006": "2006",
+        "2009": "2009",
+        "2012": "2012",
+        "2015": "2015"
+    },
     "keyframes": [
         {
             "Text": "This is Lake Urmia, located in the northwestern part of Iran near the Iranian Turkish border. In 1984, Lake Urmia was a very large lake, spanning about 150 kilometers north to south. At the time it was the largest lake in the Middle East and the sixth largest saltwater lake on Earth.",

@@ -43,9 +43,21 @@
 
 .earthlapse-stories-timeline-labels-item {
     position: absolute;
-    bottom: 40px;
-    font-size: 48px;
+    bottom: 20px;
+    font-size: 24px;
     text-shadow: 5px 5px 15px rgba(0,0,0,0.85);
+    transform: translateY(0);
+    opacity: 0.65;
+    transition-property: opacity, transform;
+    transition-duration: 3s;
+    transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
+    text-transform: uppercase;
+}
+
+.earthlapse-stories-timeline-labels-item.hasfocus {
+    transform: translateY(-20px);
+    opacity: 1;
+    transition-duration: 0.1s;
 }
 
 /* Explain
