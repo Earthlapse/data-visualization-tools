@@ -55,23 +55,25 @@ body.earthlapse-modes-story .earthlapse-modes-screen.earthlapse-modes-story-cont
 
 .earthlapse-modes-homebutton {
     position: absolute;
-    background: rgba(255,255,255,1);
-    color: #000;
+    background: url(menu-icon.svg);
+    z-index: 99;
+    top: 30px;
+    left: 40px;
+    width: 80px;
+    height: 80px;
+    border:0,0,0,0;
+    border-width: 0px;
+/*    color: #000;
     border: 1px solid rgba(101,101,101,1);
     font-family: Arial, Helvetica, sans-serif;
     font-size: 15px;
     outline: none;
     box-shadow: 2px 2px 3px rgba(0,0,0,0.3);
-    z-index: 99;
-    top: 30px;
-    left: 20px;
-    width: 80px;
-    height: 80px;
     text-align: center;
     line-height: 80px;
     background: #FFF;
     color: #000;
-    border-radius: 50%;
+    border-radius: 50%;*/
 }
 
 /* CREATE Lab CSS modifications for exploration mode
