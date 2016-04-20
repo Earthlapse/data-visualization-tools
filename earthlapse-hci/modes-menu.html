@@ -18,7 +18,15 @@
         });
 
         // On selection of explore button, initiate exploration mode
-        $(".earthlapse-modes-menu-container").on("click", ".earthlapse-modes-menu-explorebutton", function (e) {
+        $(".earthlapse-modes-menu-container").on("mousedown", ".earthlapse-modes-menu-explorebutton", function (e) {
+            $(this).addClass("hasfocus");
+        }).on("mouseup", ".earthlapse-modes-menu-explorebutton", function (e) {
+            var $this = $(this);
+
+            // If this button had focus, then we should execute an action
+            if (!$this.hasClass("hasfocus")) { return; }
+            $this.removeClass("hasfocus");
+
             EarthlapseUI.Modes.changeModeTo("explore");
         });
 
@@ -62,67 +70,20 @@
     });
 </script>
 <div class="earthlapse-modes-screen">
-    <h2>Choose a story to begin</h2>
+    <h1>Welcome to Planet Earth!</h1>
 
-    <div class="earthlapse-stories-gallery">
-        <!-- div class="ui-button earthlapse-modes-menu-item" data-storyid="las-vegas">
-            <div class="img">
-                <img src="http://thumbnails.cmucreatelab.org/thumbnail?root=http://earthengine.google.org/timelapse/data/20130507&boundsLTRB=239833.73508091227,522897.15176901396,243314.48721083216,524958.4096709508&width=250&height=150&frameTime=2.1">
-                <div class="desc">Las Vegas</div>
-            </div>
+    <section class="earthlapse-modes-menu-section earthlapse-modes-menu-section-stories">
+        <h2 class="earthlapse-modes-menu-section-heading">Choose a story to begin</h2>
+
+        <div class="earthlapse-stories-gallery">
+            <!-- Todo: Columbia Glacier -->
+            <!-- Todo: Solar Panel in California -->
+            <!-- Todo: U.S. Solar -->
+            <!-- Todo: U.S. Wind -->
         </div>
+    </section>
 
-        <div class="ui-button earthlapse-modes-menu-item" data-storyid="lake-urmia">
-            <div class="img">
-                <img src="http://thumbnails.cmucreatelab.org/thumbnail?root=http://earthengine.google.org/timelapse/data/20130507&boundsLTRB=829953.5478804687,512969.2419359944,842765.3283798227,520556.2182004556&width=250&height=150&frameTime=1.5">
-                <div class="desc">Lake Urmia</div>
-            </div>
-        </div>
-
-        <div class="ui-button earthlapse-modes-menu-item" data-storyid="fires-at-night">
-            <div class="img">
-                <img src="http://thumbnails.cmucreatelab.org/thumbnail?root=http://earthengine.google.org/timelapse/data/20130507&boundsLTRB=69258.77206860541,209520.56620188005,1212884.3532619216,886761.3400647969&width=250&height=150&frameTime=1.6">
-                <div class="desc">Fire at Night</div>
-            </div>
-        </div>
-
-        <div class="ui-button earthlapse-modes-menu-item" data-storyid="example">
-            <div class="img">
-                <img src="http://placehold.it/250x150">
-                <div class="desc">Amazon Deforestation</div>
-            </div>
-        </div>
-
-        <div class="ui-button earthlapse-modes-menu-item" data-storyid="example">
-            <div class="img">
-                <img src="http://placehold.it/250x150">
-                <div class="desc">Columbia Glacier</div>
-            </div>
-        </div>
-
-        <div class="ui-button earthlapse-modes-menu-item" data-storyid="example">
-            <div class="img">
-                <img src="http://placehold.it/250x150">
-                <div class="desc">Solar Panel in California</div>
-            </div>
-        </div>
-
-        <div class="ui-button earthlapse-modes-menu-item" data-storyid="example">
-            <div class="img">
-                <img src="http://placehold.it/250x150">
-                <div class="desc">U.S. Solar</div>
-            </div>
-        </div>
-
-        <div class="ui-button earthlapse-modes-menu-item" data-storyid="example">
-            <div class="img">
-                <img src="http://placehold.it/250x150">
-                <div class="desc">U.S. Solar</div>
-            </div>
-        </div -->
-    </div>
-
-    <div class="earthlapse-modes-menu-explore">
-        <button class="ui-button earthlapse-modes-menu-explorebutton">Explore on your own</button>
-    </div>
+    <section class="earthlapse-modes-menu-section earthlapse-modes-menu-section-explore">
+        <button class="earthlapse-modes-menu-section-heading ui-button earthlapse-modes-menu-explorebutton">Explore on your own</button>
+    </section>
 </div>
