@@ -371,7 +371,7 @@
         },
         {
             "Text": "In northern Africa and the Middle East, the fires you’re seeing on the \"Map\" tend to come from oil extraction. Oil extraction occurs all across the planet. People take oil out of the ground and then flare the methane that comes with the oil. This flaring of methane results in these long lasting fires that appear to burn all year round.",
-            "BoundingBox": {"xmin": 502959.3567333468, "xmax": 955779.2380762696, "ymin": 422457.64704825263, "ymax": 655130.2161771057},
+            "BoundingBox": {"xmin": 635084.1462929784, "xmax": 1057473.8426128908, "ymin": 451452.56275156914, "ymax": 649874.7267049458},
             "Pause": false,
             "StopFrame": null,
             "Layers": [
@@ -381,7 +381,7 @@
         },
         {
             "Text": "In the United States, there are three particular areas where extended fires are visible, two in North Dakota and one in Texas. These fires are the result of hydraulic fracturing.",
-            "BoundingBox": {"xmin": 61390.97736472127, "xmax": 514210.85870764416, "ymin": 391675.2359864972, "ymax": 624347.8051153502},
+            "BoundingBox": {"xmin": 152296.4858954417, "xmax": 574686.182215354, "ymin": 399173.6692548704, "ymax": 597595.833208247},
             "Pause": false,
             "StopFrame": null,
             "Layers": [
@@ -391,7 +391,7 @@
         },
         {
             "Text": "Hydraulic fracturing or \"fracking\" is a process for obtaining natural gases from the ground. \"Fracking\" involves pumping large amounts of water, sand, and chemicals into the ground in order to break apart the rock to release natural gas. (For Pittsburgh residents, if you’ve ever seen the big oil trains come through, about a quarter of the oil from North Dakota comes through Pittsburgh on the way to refinement in Philadelphia.)",
-            "BoundingBox": {"xmin": 61390.97736472127, "xmax": 514210.85870764416, "ymin": 391675.2359864972, "ymax": 624347.8051153502},
+            "BoundingBox": {"xmin": 152296.4858954417, "xmax": 574686.182215354, "ymin": 399173.6692548704, "ymax": 597595.833208247},
             "Pause": false,
             "StopFrame": null,
             "Layers": [
