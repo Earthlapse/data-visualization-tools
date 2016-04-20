@@ -50,30 +50,34 @@ body.earthlapse-modes-story .earthlapse-modes-screen.earthlapse-modes-story-cont
     color: #ffffff;
 }
 
-/* Global interactors
+/* Adapt Earthlapse UI for different modes
 -------------------------------------------------- */
 
-.earthlapse-modes-homebutton {
-    position: absolute;
-    background: url(menu-icon.svg) no-repeat center;
-    background-size: contain;
-    z-index: 99;
-    top: 30px;
-    left: 40px;
-    width: 80px;
-    height: 80px;
-    border: 0;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 15px;
-    line-height: 80px;
-    text-align: center;
-    color: #000;
-    outline: none;
-    text-indent: -999999px;
-/*    border: 1px solid rgba(101,101,101,1);
-    box-shadow: 2px 2px 3px rgba(0,0,0,0.3);
-    background: #FFF;
-    border-radius: 50%;*/
+.earthlapse-ui-globalcontrol {
+    opacity: 0;
+    visibility: hidden;
+    transition-duration: 1s;
+    transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+body.earthlapse-modes-menu .earthlapse-ui-globalcontrol,
+body.earthlapse-modes-story .earthlapse-ui-globalcontrol,
+body.earthlapse-modes-explore .earthlapse-ui-globalcontrol {
+    opacity: 1;
+    visibility: visible;
+}
+
+.earthlapse-ui-globalcontrol-item {
+    opacity: 0.25;
+    pointer-events: none;
+    transition-duration: 1s;
+    transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+body.earthlapse-modes-story .earthlapse-ui-globalcontrol-homebutton,
+body.earthlapse-modes-explore .earthlapse-ui-globalcontrol-homebutton {
+    opacity: 1;
+    pointer-events: all;
 }
 
 /* CREATE Lab CSS modifications for exploration mode

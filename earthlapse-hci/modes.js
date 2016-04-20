@@ -6,7 +6,7 @@
     var revertTimeoutDelay = 5 * 60 * 1000; // milliseconds since last click/touch
 
     /* State information */
-    var currentMode = "";
+    var currentMode = null;
     var revertTimeout = null;
 
     /* Functions */
@@ -45,6 +45,10 @@
             oldMode: oldMode,
             mode: mode
         });
+    }
+
+    function getCurrentMode() {
+        return currentMode;
     }
 
     function loadScreen(mode) {
@@ -88,17 +92,10 @@
     EarthlapseUI.bind("init", function() {
         // Setup basic Earthlapse Modes UI
         $("body").addClass("earthlapse-modes");
-        var $backToMenu = $("<button class=\"ui-button earthlapse-modes-homebutton earthlapse-modes-container\">Menu</button>");
-        $backToMenu.on("click", function(e) {
-            e.preventDefault();
-            changeModeTo("menu");
-        });
-        $("#timeMachine").append($backToMenu);
 
         // Convert CREATE Lab UI into Earthlapse exploration mode
         var $explore = $(".location_search_div, .presentationSlider, .current-location-text, .player > div[class]:not(#timeMachine_timelapse), #timeMachine_timelapse > div");
         $explore.addClass("earthlapse-modes-container earthlapse-modes-explore-container");
-        $backToMenu.addClass("earthlapse-modes-explore-container");
 
         // Disable panning/zooming on screens
         document.addEventListener("touchmove", function (e) {
@@ -116,6 +113,12 @@
         loadScreen("menu");
         loadScreen("story");
 
+        // Configure explore mode: Back to menu
+        EarthlapseUI.GlobalControl.bindAction("home", function () {
+            if (EarthlapseUI.Modes.getCurrentMode() !== "explore") { return; }
+            changeModeTo("menu");
+        });
+
         // Set up timeout to revert to default mode
         $(document).on("click touchstart touchmove", function () {
             resetRevertTimeout();
@@ -125,6 +128,7 @@
     // Expose modes API
     EarthlapseUI.Modes = {
         changeModeTo: changeModeTo,
+        getCurrentMode: getCurrentMode,
         loadScreen: loadScreen,
         revertToDefault: revertToDefault,
         resetRevertTimeout: resetRevertTimeout
