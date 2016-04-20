@@ -79,6 +79,8 @@
     right: 0;
     transition-duration: 0.5s;
     transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
+    background: rgba(0,0,0,0.25);
+    padding: 15px;
 }
 
 .earthlapse-stories-explain-content-enter,
@@ -105,9 +107,7 @@
 }
 
 .earthlapse-stories-explain-text {
-    background: rgba(0,0,0,0.25);
     font-size: 28px;
-    padding: 10px 10px 10px 10px;
     margin-bottom: 10px;
     text-shadow: 5px 5px 15px rgba(0,0,0,0.65);
 }
@@ -134,13 +134,13 @@
     font: inherit;
     font-size: 24px;
     vertical-align: middle;
-    border-radius: 10px;
-    background: #ffffff;
-    color: #000000;
-    border: 0;
+    background: none;
+    color: #ffffff;
+    border: 4px solid #ffffff;
     padding: 10px;
     width: 130px;
-    box-shadow: 5px 5px 15px rgba(0,0,0,0.50);
+    box-shadow: 3px 3px 10px rgba(0,0,0,0.50), 3px 3px 10px rgba(0,0,0,0.50) inset;
+    text-shadow: 3px 3px 10px rgba(0,0,0,0.65);
     outline: none;
     transition-duration: 0.2s;
     transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
@@ -148,8 +148,10 @@
 
 .earthlapse-stories-explain-nav-button.hasfocus,
 .earthlapse-stories-explain-nav-button:active {
-    background: #000000;
-    color: #ffffff;
+    background: #ffffff;
+    color: #000000;
+    text-shadow: 0 0 0 rgba(0,0,0,0);
+    box-shadow: 3px 3px 10px rgba(0,0,0,0.50);
 }
 
 .earthlapse-stories-explain-nav-back {

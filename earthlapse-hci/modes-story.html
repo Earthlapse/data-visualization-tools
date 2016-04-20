@@ -168,6 +168,7 @@
 
                 // If this button had focus, then we should execute an action
                 if (!$this.hasClass("hasfocus")) { return; }
+                $this.removeClass("hasfocus");
                 e.preventDefault();
 
                 var $this = $(this);
