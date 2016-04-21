@@ -2,10 +2,22 @@
     EarthlapseUI.bind("loadedscreen", function (e) {
         if (e.mode !== "menu") { return; }
 
+        var $screen = $(".earthlapse-modes-menu-container");
+
+        // Enable focus style
+        $screen.on("mousedown", ".earthlapse-modes-menu-item, .earthlapse-modes-menu-explorebutton", function () {
+            $(this).addClass("hasfocus");
+        });
+
         // On selection of any tile, initiate the story
-        $(".earthlapse-modes-menu-container").on("click", ".earthlapse-modes-menu-item", function (e) {
-            var $item = $(this);
-            var storyId = $item.data("storyId");
+        $screen.on("mouseup", ".earthlapse-modes-menu-item", function (e) {
+            var $this = $(this);
+
+            // If this button had focus, then we should execute an action
+            if (!$this.hasClass("hasfocus")) { return; }
+            $this.removeClass("hasfocus");
+
+            var storyId = $this.data("storyId");
 
             // Make sure the story is ready to be played
             if (typeof storyId === "undefined" || storyId === null) {
@@ -18,9 +30,7 @@
         });
 
         // On selection of explore button, initiate exploration mode
-        $(".earthlapse-modes-menu-container").on("mousedown", ".earthlapse-modes-menu-explorebutton", function (e) {
-            $(this).addClass("hasfocus");
-        }).on("mouseup", ".earthlapse-modes-menu-explorebutton", function (e) {
+        $screen.on("mouseup", ".earthlapse-modes-menu-explorebutton", function (e) {
             var $this = $(this);
 
             // If this button had focus, then we should execute an action
