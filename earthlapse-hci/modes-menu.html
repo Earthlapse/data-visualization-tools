@@ -7,6 +7,8 @@
         // Enable focus style
         $screen.on("mousedown", ".earthlapse-modes-menu-item, .earthlapse-modes-menu-explorebutton", function () {
             $(this).addClass("hasfocus");
+        }).on("mouseout", ".earthlapse-modes-menu-item, .earthlapse-modes-menu-explorebutton", function () {
+            $(this).removeClass("hasfocus");
         });
 
         // On selection of any tile, initiate the story

@@ -161,8 +161,10 @@
             };
 
             // Explain Nav Buttons
-            $explain.on("mousedown", ".earthlapse-stories-explain-nav-button", function (e) {
+            $explain.on("mousedown", ".earthlapse-stories-explain-nav-button", function () {
                 $(this).addClass("hasfocus");
+            }).on("mouseout", ".earthlapse-stories-explain-nav-button", function () {
+                $(this).removeClass("hasfocus");
             }).on("mouseup", ".earthlapse-stories-explain-nav-button", function (e) {
                 var $this = $(this);
 
