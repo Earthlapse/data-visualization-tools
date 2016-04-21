@@ -12,7 +12,6 @@ body.earthlapse-modes-story .earthlapse-modes-story-container,
 body.earthlapse-modes-explore .earthlapse-modes-explore-container {
     visibility: visible;
     opacity: 1;
-    transform: none;
 }
 
 body.earthlapse-modes-default .earthlapse-modes-screen.earthlapse-modes-default-container,

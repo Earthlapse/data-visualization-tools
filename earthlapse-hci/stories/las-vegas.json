@@ -1,6 +1,6 @@
 {
     "title": "Las Vegas",
-    "thumbnail": "http://thumbnails.cmucreatelab.org/thumbnail?root=http://earthengine.google.org/timelapse/data/20130507&boundsLTRB=239833.73508091227,522897.15176901396,243314.48721083216,524958.4096709508&width=250&height=150&frameTime=2.1",
+    "thumbnail": "http://thumbnails.cmucreatelab.org/thumbnail?root=http://earthengine.google.org/timelapse/data/20130507&boundsLTRB=239833.73508091227,522897.15176901396,243314.48721083216,524958.4096709508&width=264&height=204&frameTime=2.1",
     "timelineLabels": {
         "1985": "1985",
         "1988": "1988",
