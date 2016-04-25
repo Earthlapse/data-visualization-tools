@@ -29,6 +29,8 @@
 
             EarthlapseUI.Stories.startStory(storyId);
             EarthlapseUI.Modes.changeModeTo("story");
+
+            org.gigapan.Util.addGoogleAnalyticEvent('menu-item', 'touch', storyId);
         });
 
         // On selection of explore button, initiate exploration mode

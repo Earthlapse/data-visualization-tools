@@ -185,7 +185,7 @@
           },
           contextMapOptions: {
             contextMapDiv: "contextMap1",
-            tileType: useGoogleMaps ? "Google" : "OpenStreetMap",
+            tileType: "Google",//useGoogleMaps ? "Google" : "OpenStreetMap",
             tileUrl: osmDefaultUrl,
             geometry: {
               width: 270,
@@ -1496,8 +1496,8 @@
         }
 
         // Toggle the context map and hide it
-        $(".toggleContextMapBtn").click();
-        $(".contextMapContainer").hide();
+        //$(".toggleContextMapBtn").click();
+        //$(".contextMapContainer").hide();
 
         // Display info box for the waypoints
         if (enableWaypointText) {
