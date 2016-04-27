@@ -16,7 +16,7 @@
     },
     "keyframes": [
         {
-            "Text": "Welcome to Las Vegas. The year is 1984. Total current population of Las Vegas metropolitan area: 539,030. Over the past 30 years, Las Vegas has undergone rapid growth.",
+            "Text": "Welcome to Las Vegas. The year is 1984. Total current population of Las Vegas metropolitan area: 539,030.",
             "BoundingBox": {
                 "xmin": 239318.1997833043,
                 "xmax": 243329.75371107023,
