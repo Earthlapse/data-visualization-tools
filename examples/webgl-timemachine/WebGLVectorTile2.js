@@ -35,19 +35,22 @@ function WebGLVectorTile2(glb, tileidx, bounds, url, opt_options) {
 
 WebGLVectorTile2.prototype._load = function() {
   var that = this;
-  var xhr = new XMLHttpRequest();
-  xhr.open('GET', that._url);
-  xhr.responseType = 'arraybuffer';
-  xhr.onload = function() {
-    var float32Array = new Float32Array(this.response);
+  this.xhr = new XMLHttpRequest();
+  this.xhr.open('GET', that._url);
+  this.xhr.responseType = 'arraybuffer';
+  var float32Array;
+  this.xhr.onload = function() {
+    if (this.status == 404) {
+      float32Array = new Float32Array([]);
+    } else {
+      float32Array = new Float32Array(this.response);
+    }
     that._setData(float32Array);
   }
-  // If tile 404's, replace with defaultUrl.  This lets us remove e.g. all the
-  // sea tiles and replace with a single default tile.
-  xhr.onerror = function() {
+  this.xhr.onerror = function() {
     that._setData(new Float32Array([]));
   }
-  xhr.send();
+  this.xhr.send();  
 }
 
 
@@ -90,25 +93,26 @@ WebGLVectorTile2.prototype._setUsgsWindTurbineData = function(arrayBuffer) {
 WebGLVectorTile2.prototype._setLodesData = function(arrayBuffer) {
   var gl = this.gl;
   this._pointCount = arrayBuffer.length / 6;
+  if (this._pointCount > 0) {
+    this._data = arrayBuffer;
+    this._arrayBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, this._arrayBuffer);
+    gl.bufferData(gl.ARRAY_BUFFER, this._data, gl.STATIC_DRAW);
 
-  this._data = arrayBuffer;
-  this._arrayBuffer = gl.createBuffer();
-  gl.bindBuffer(gl.ARRAY_BUFFER, this._arrayBuffer);
-  gl.bufferData(gl.ARRAY_BUFFER, this._data, gl.STATIC_DRAW);
+    var attributeLoc = gl.getAttribLocation(this.program, 'centroid');
+    gl.enableVertexAttribArray(attributeLoc);
+    gl.vertexAttribPointer(attributeLoc, 4, gl.FLOAT, false, 24, 0);
 
-  var attributeLoc = gl.getAttribLocation(this.program, 'centroid');
-  gl.enableVertexAttribArray(attributeLoc);
-  gl.vertexAttribPointer(attributeLoc, 4, gl.FLOAT, false, 24, 0);
+    var attributeLoc = gl.getAttribLocation(this.program, 'aDist');
+    gl.enableVertexAttribArray(attributeLoc);
+    gl.vertexAttribPointer(attributeLoc, 1, gl.FLOAT, false, 24, 16);
 
-  var attributeLoc = gl.getAttribLocation(this.program, 'aDist');
-  gl.enableVertexAttribArray(attributeLoc);
-  gl.vertexAttribPointer(attributeLoc, 1, gl.FLOAT, false, 24, 16);
+    var attributeLoc = gl.getAttribLocation(this.program, 'aColor');
+    gl.enableVertexAttribArray(attributeLoc);
+    gl.vertexAttribPointer(attributeLoc, 1, gl.FLOAT, false, 24, 20);
 
-  var attributeLoc = gl.getAttribLocation(this.program, 'aColor');
-  gl.enableVertexAttribArray(attributeLoc);
-  gl.vertexAttribPointer(attributeLoc, 1, gl.FLOAT, false, 24, 20);
-
-  this._ready = true;
+    this._ready = true;
+  }
 }
 
 
@@ -118,8 +122,12 @@ WebGLVectorTile2.prototype.isReady = function() {
 }
 
 WebGLVectorTile2.prototype.delete = function() {
-  //console.log('delete');
-}
+  if (!this.isReady()) {
+    if (this.xhr != null) {
+      this.xhr.abort();
+    }
+  }
+ }
 
 
 WebGLVectorTile2.prototype._drawLines = function(transform) {
@@ -248,8 +256,6 @@ WebGLVectorTile2.prototype._drawLodes = function(transform, options) {
     }
 
     scaleMatrix(tileTransform, Math.pow(2,this._tileidx.l)/256., Math.pow(2,this._tileidx.l)/256.);
-
-    translateMatrix(tileTransform, (this._bounds.max.x - this._bounds.min.x)/256., (this._bounds.max.y - this._bounds.min.y)/256.);
     scaleMatrix(tileTransform, this._bounds.max.x - this._bounds.min.x, this._bounds.max.y - this._bounds.min.y);
 
     //pointSize *= Math.floor((zoom + 1.0) / (13.0 - 1.0) * (12.0 - 1) + 1) * 0.5;
@@ -262,8 +268,8 @@ WebGLVectorTile2.prototype._drawLodes = function(transform, options) {
     gl.bindBuffer(gl.ARRAY_BUFFER, this._arrayBuffer);
 
 
-    var aTime = gl.getAttribLocation(this.program, "aTime");
-    gl.vertexAttrib1f(aTime, step);
+    var uTime = gl.getUniformLocation(this.program, "uTime");
+    gl.uniform1f(uTime, step);
 
     var sizeLoc = gl.getUniformLocation(this.program, 'uSize');
     gl.uniform1f(sizeLoc, pointSize);
@@ -358,7 +364,6 @@ WebGLVectorTile2.vectorPointTileFragmentShader =
 
 WebGLVectorTile2.lodesVertexShader =
   'attribute vec4 centroid;\n' +
-  'attribute float aTime;\n' +
   'attribute float aDist;\n' +
   'attribute float aColor;\n' +
   'uniform bool filterDist;\n' +
@@ -367,6 +372,7 @@ WebGLVectorTile2.lodesVertexShader =
   'uniform bool showSe03;\n' +
   'uniform float uDist;\n' +
   'uniform float uSize;\n' +
+  'uniform float uTime;\n' +
   'uniform float uZoom;\n' +
   'uniform mat4 mapMatrix;\n' +
   'varying float vColor;\n' +
@@ -377,8 +383,8 @@ WebGLVectorTile2.lodesVertexShader =
   '  return y + deltaY * t;\n' +
   '}\n' +
   'void main() {\n' +
-  '  float fx = fX(centroid.z, centroid.x - centroid.z, aTime);\n' +
-  '  float fy = fY(centroid.w, centroid.y - centroid.w, aTime);\n' +
+  '  float fx = fX(centroid.z, centroid.x - centroid.z, uTime);\n' +
+  '  float fy = fY(centroid.w, centroid.y - centroid.w, uTime);\n' +
   '  vec4 position = mapMatrix * vec4(fx, fy, 0, 1);\n' +
   '  if (filterDist && aDist >= uDist) {\n' +
   '    position = vec4(-1.,-1.,-1.,-1.);\n' +
