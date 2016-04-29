@@ -1,0 +1,49 @@
+{
+   "title":"Columbia Glacier",
+   "thumbnail":"http://thumbnails.cmucreatelab.org/thumbnail?root=http://earthengine.google.org/timelapse/data/20130507&boundsLTRB=120648.12188164717,379004.52579184965,123773.7826115603,380610.5849385842&width=264&height=204&frameTime=2.1",
+   "timelineLabels":{
+      "1985":"1985",
+      "1988":"1988",
+      "1991":"1991",
+      "1994":"1994",
+      "1997":"1997",
+      "2000":"2000",
+      "2003":"2003",
+      "2006":"2006",
+      "2009":"2009",
+      "2012":"2012",
+      "2015":"2015"
+   },
+   "keyframes":[
+      {
+         "Text":"This is Columbia Glacier, located in Prince William Sound on the south coast of Alaska. Over the past 30 years, Columbia Glacier has retreated more than 20 kilometers to the north and lost about half of its thickness and volume partially due to rising temperatures, making it one of the fastest changing glaciers in the world.",
+         "BoundingBox":{
+            "xmin":120648.12188164717,
+            "xmax":123773.7826115603,
+            "ymin":379004.52579184965,
+            "ymax":380610.5849385842
+         },
+         "Pause":true,
+         "StopFrame":1984,
+         "Layers":[
+
+         ],
+         "Map":"landsat-base"
+      },
+      {
+         "Text":"While the changes to the glacier have affected the global-sea level rise, its thinning and retreat are not exclusively due to climate change.  Other mechanical processes are to blame for its changing state.  It is likely that once the Columbia reaches the shoreline, its retreat will slow.",
+         "BoundingBox":{
+            "xmin":120648.12188164717,
+            "xmax":123773.7826115603,
+            "ymin":379004.52579184965,
+            "ymax":380610.5849385842
+         },
+         "Pause":false,
+         "StopFrame":1984,
+         "Layers":[
+
+         ],
+         "Map":"landsat-base"
+      }
+   ]
+}

@@ -1,0 +1,95 @@
+{
+   "title":"U.S. Energy",
+   "thumbnail":"http://thumbnails.cmucreatelab.org/thumbnail?root=http://earthengine.google.org/timelapse/data/20130507&boundsLTRB=75666.5389124809,440149.8477250993,386117.5070351481,599668.9574590155&width=264&height=204&frameTime=2.1",
+   "timelineLabels":{
+      "1985":"1985",
+      "1988":"1988",
+      "1991":"1991",
+      "1994":"1994",
+      "1997":"1997",
+      "2000":"2000",
+      "2003":"2003",
+      "2006":"2006",
+      "2009":"2009",
+      "2012":"2012",
+      "2015":"2015"
+   },
+   "keyframes":[
+      {
+         "Text":"Over the past few years the United States has increased its use of wind and solar power.",
+         "BoundingBox":{
+            "xmin":75666.5389124809,
+            "xmax":386117.5070351481,
+            "ymin":440149.8477250993,
+            "ymax":599668.9574590155
+         },
+         "Pause":true,
+         "StopFrame":1984,
+         "Layers":[
+
+         ],
+         "Map":"landsat-base"
+      },
+      {
+         "Text":"Southern California has historically been home to a lot of farmland. Since 2010 especially, these open areas in California have begun to host many miles of solar photovoltaic cells.",
+         "BoundingBox":{
+            "xmin":228024.69151380192,
+            "xmax":229209.09545120702,
+            "ymin":529659.2880261593,
+            "ymax":530267.8706400347
+         },
+         "Pause":false,
+         "StopFrame":1984,
+         "Layers":[
+
+         ],
+         "Map":"landsat-base"
+      },
+      {
+         "Text":"As we look across the entire United States, watch for for installation of solar panels in blue and white. By 2005 there are a lot of it in California. The East Coast rise in panels follows shortly after.",
+         "BoundingBox":{
+            "xmin":160526.6675070753,
+            "xmax":484288.003271752,
+            "ymin":399980.7447088642,
+            "ymax":601754.611804569
+         },
+         "Pause":false,
+         "StopFrame":false,
+         "Layers":[
+            "show-solar-installs"
+         ],
+         "Map":"landsat-base"
+      },
+      {
+         "Text":"The same is true of wind power. Over the last 30 years, watch for the installation of wind turbines in green. ",
+         "BoundingBox":{
+            "xmin":160526.6675070753,
+            "xmax":484288.003271752,
+            "ymin":399980.7447088642,
+            "ymax":601754.611804569
+         },
+         "Pause":false,
+         "StopFrame":false,
+         "Layers":[
+            "show-usgs-windturbine"
+         ],
+         "Map":"landsat-base"
+      },
+      {
+         "Text":"By 2015, there are over half a million solar installations across the United States and more than 52,000 wind turbines.",
+         "BoundingBox":{
+            "xmin":160526.6675070753,
+            "xmax":484288.003271752,
+            "ymin":399980.7447088642,
+            "ymax":601754.611804569
+         },
+         "Pause":false,
+         "StopFrame":1984,
+         "Layers":[
+            "show-usgs-windturbine",
+            "show-solar-installs"
+         ],
+         "Map":"landsat-base"
+      }
+   ]
+}
