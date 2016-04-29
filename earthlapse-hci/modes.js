@@ -3,7 +3,7 @@
 (function($) {
     /* Configuration */
     var defaultMode = "default";
-    var revertTimeoutDelay = 5 * 60 * 1000; // milliseconds since last click/touch
+    var revertTimeoutDelay = 1 * 60 * 1000; // milliseconds since last click/touch
 
     /* State information */
     var currentMode = null;
