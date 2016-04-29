@@ -49,6 +49,28 @@ body.earthlapse-modes-story .earthlapse-modes-screen.earthlapse-modes-story-cont
     color: #ffffff;
 }
 
+.earthlapse-modes-screen::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: #000000;
+    visibility: hidden;
+    opacity: 0;
+    transition-duration: 0.5s;
+}
+
+.earthlapse-modes-screen.transitioning::before {
+    visibility: visible;
+    opacity: 1;
+}
+
+.earthlapse-modes-screen.transitioning > * {
+    display: none;
+}
+
 /* Adapt Earthlapse UI for different modes
 -------------------------------------------------- */
 

@@ -172,6 +172,8 @@
 
     // Expose Story Mode API
     EarthlapseUI.Stories = {
+        setMap: setMap,
+        setLayers: setLayers,
         getStoryId: getStoryId,
         getKeyframe: getKeyframe,
         nextKeyframe: nextKeyframe,
