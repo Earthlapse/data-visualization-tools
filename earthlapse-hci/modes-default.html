@@ -2,44 +2,64 @@
     EarthlapseUI.bind("loadedscreen", function (e) {
         if (e.mode !== "default") { return; }
 
-        EarthlapseUI.bind("changemode", function (e) {
-            if (e.mode !== "default" || e.oldMode === "default") { return; }
-
+        function showScreensaver() {
             // Reset exploration mode
             $("#timeMachine .thumbnail_highlight").removeClass("thumbnail_highlight");
 
-            // Himawari viewport
+            // Enable Himawari layer
+            timelapse.setLoopPlayback(true);
+            EarthlapseUI.Stories.setMap("landsat-base");
+            EarthlapseUI.Stories.setLayers(["show-himawari"]);
+            timelapse.seek(0);
+
+            // Set Himawari viewport
             var himawariBoundingBox = {
                 xmin: 427281.96650542633,
                 xmax: 1522596.4544802196,
                 ymin: 719301.378314219,
                 ymax: 1335415.77780004
             };
-            var himawariView = { bbox: himawariBoundingBox };
+            var himawariView = { "bbox": himawariBoundingBox };
+            timelapse.stopParabolicMotion();
+            timelapse.setNewView(himawariView, true, true);
 
-            // Enable Himawari layer
-            $("#show-himawari").prop("checked", false);
+            setTimeout(function () {
+                // Reveal beautiful world
+                $(".earthlapse-modes-default-container").removeClass("transitioning");
 
-            // Disable VIIRS layer (compatibility issues)
-            if ($("#show-viirs").prop('checked')) {
-                $("#show-viirs").click();
+                // On any click, go to menu page
+                $(".earthlapse-modes-default-container").on("click touchstart", function (e) {
+                    EarthlapseUI.Modes.changeModeTo("menu");
+                });
+            }, 500);
+        }
+
+        EarthlapseUI.bind("changemode", function (e) {
+            if (e.mode === "default" && e.oldMode !== "default") {
+                // Entering screensaver mode
+
+                // Transition: fade out previous session's time machine
+                $(".earthlapse-modes-default-container").addClass("transitioning");
+                setTimeout(showScreensaver, 500);
             }
 
-            // Reset timelapse for Himawari Earth animation
-            timelapse.setPlaybackRate(defaultPlaybackSpeed);
-            timelapse.setLoopPlayback(true);
-            timelapse.seek(0);
-            timelapse.stopParabolicMotion();
-            timelapse.warpToBoundingBox(himawariView);
+            if (e.mode !== "default" && e.oldMode === "default") {
+                // Leaving screensaver mode
 
-            // Show Himawari layer
-            loadHimawari();
-            timelapse.setNewView(himawariView, false, true, null);
-        });
+                // Turn off Himawari
+                EarthlapseUI.Stories.setLayers([]);
+                timelapse.seek(0);
 
-        // On any click, go to menu page
-        $(".earthlapse-modes-default-container").on("click touchstart", function (e) {
-            EarthlapseUI.Modes.changeModeTo("menu");
+                // Set to world map view
+                var worldBoundingBox = {
+                    "xmin": -166901.23878535093,
+                    "xmax": 1493605.188603412,
+                    "ymin": 148402.58388388436,
+                    "ymax": 1001621.0763443082
+                };
+                var worldView = { "bbox": worldBoundingBox };
+                timelapse.setNewView(worldView, true, true);
+            }
         });
     });
 </script>
