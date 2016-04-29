@@ -40,6 +40,9 @@
         // On any click, go to menu page
         $(".earthlapse-modes-default-container").on("click touchstart", function (e) {
             EarthlapseUI.Modes.changeModeTo("menu");
+
+            // Analytics
+            org.gigapan.Util.addGoogleAnalyticEvent('interface', 'touch', 'interaction-begin');
         });
     });
 </script>

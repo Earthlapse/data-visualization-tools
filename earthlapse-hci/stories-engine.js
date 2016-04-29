@@ -56,6 +56,10 @@
         });
     }
 
+    function getStoryId() {
+        return storyId;
+    }
+
     function goToKeyframe(newIndex) {
         // Check keyframe index bounds
         if (newIndex < 0 || newIndex > storyDict[storyId].keyframes.length - 1) {
@@ -89,6 +93,10 @@
 
     function prevKeyframe() {
         goToKeyframe(index - 1);
+    }
+
+    function getKeyframe() {
+        return index;
     }
 
     function setPlaybackRate(rate) {
@@ -164,6 +172,8 @@
 
     // Expose Story Mode API
     EarthlapseUI.Stories = {
+        getStoryId: getStoryId,
+        getKeyframe: getKeyframe,
         nextKeyframe: nextKeyframe,
         prevKeyframe: prevKeyframe,
         startStory: startStory,

@@ -85,6 +85,9 @@
         clearTimeout(revertTimeout);
         revertTimeout = setTimeout(function() {
             revertToDefault();
+
+            // Analytics
+            org.gigapan.Util.addGoogleAnalyticEvent('interface', 'timeout', 'interaction-end');
         }, revertTimeoutDelay);
     };
 
@@ -123,6 +126,9 @@
         EarthlapseUI.GlobalControl.bindAction("home", function () {
             if (EarthlapseUI.Modes.getCurrentMode() !== "explore") { return; }
             changeModeTo("menu");
+
+            // Analytics
+            org.gigapan.Util.addGoogleAnalyticEvent('globalcontrol-menu', 'touch', 'from-explore');
         });
 
         // Set up timeout to revert to default mode

@@ -27,9 +27,11 @@
                 return;
             }
 
+            // Enter story
             EarthlapseUI.Stories.startStory(storyId);
             EarthlapseUI.Modes.changeModeTo("story");
 
+            // Analytics
             org.gigapan.Util.addGoogleAnalyticEvent('menu-item', 'touch', storyId);
         });
 
@@ -41,7 +43,11 @@
             if (!$this.hasClass("hasfocus")) { return; }
             $this.removeClass("hasfocus");
 
+            // Enter exploration
             EarthlapseUI.Modes.changeModeTo("explore");
+
+            // Analytics
+            org.gigapan.Util.addGoogleAnalyticEvent('menu-explore', 'touch');
         });
 
         var $gallery = $(".earthlapse-stories-gallery");

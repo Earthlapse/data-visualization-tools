@@ -9,6 +9,14 @@
             // Button: Back to menu
             EarthlapseUI.GlobalControl.bindAction("home", function () {
                 if (EarthlapseUI.Modes.getCurrentMode() !== "story") { return; }
+
+                // Analytics
+                org.gigapan.Util.addGoogleAnalyticEvent(
+                    'globalcontrol-menu',
+                    'touch',
+                    'from-story/' + EarthlapseUI.Stories.getStoryId() + "/" + EarthlapseUI.Stories.getKeyframe()
+                );
+
                 EarthlapseUI.Stories.finishStory();
             });
         }
@@ -177,26 +185,43 @@
                 $explain.removeClass("earthlapse-stories-explain-prev earthlapse-stories-explain-next");
 
                 if ($this.hasClass("earthlapse-stories-explain-nav-done")) {
+                    // Analytics
+                    org.gigapan.Util.addGoogleAnalyticEvent(
+                        'story-finish',
+                        'touch',
+                        EarthlapseUI.Stories.getStoryId()
+                    );
+
                     // End story
                     EarthlapseUI.Stories.finishStory();
                     return;
                 }
 
                 if ($this.hasClass("earthlapse-stories-explain-nav-back")) {
-                    // Prepare content for exit
+                    // Swap out old content for prev keyframe
                     $explain.addClass("earthlapse-stories-explain-prev");
-
-                    // Prev keyframe
                     EarthlapseUI.Stories.prevKeyframe();
+
+                    // Analytics
+                    org.gigapan.Util.addGoogleAnalyticEvent(
+                        'story-paginate',
+                        'touch',
+                        EarthlapseUI.Stories.getStoryId() + "/" + EarthlapseUI.Stories.getKeyframe()
+                    );
                     return;
                 }
 
                 if ($this.hasClass("earthlapse-stories-explain-nav-next")) {
-                    // Prepare content for exit
+                    // Swap out old content for next keyframe
                     $explain.addClass("earthlapse-stories-explain-next");
-
-                    // Next keyframe
                     EarthlapseUI.Stories.nextKeyframe();
+
+                    // Analytics
+                    org.gigapan.Util.addGoogleAnalyticEvent(
+                        'story-paginate',
+                        'touch',
+                        EarthlapseUI.Stories.getStoryId() + "/" + EarthlapseUI.Stories.getKeyframe()
+                    );
                     return;
                 }
             });
