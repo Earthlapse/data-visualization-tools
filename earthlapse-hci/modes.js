@@ -95,7 +95,13 @@
 
         // Convert CREATE Lab UI into Earthlapse exploration mode
         var $explore = $(".location_search_div, .presentationSlider, .current-location-text, .player > div[class]:not(#timeMachine_timelapse), #timeMachine_timelapse > div");
+        $explore = $explore.not(".contextMapContainer");
         $explore.addClass("earthlapse-modes-container earthlapse-modes-explore-container");
+
+        // Restore context map in exploration mode
+        var $contextMap = $(".contextMapContainer").removeAttr("style");
+        var $contextMapUI = $contextMap.find(".toggleContextMapBtn, .contextMapResizer");
+        $contextMapUI.click();
 
         // Disable panning/zooming on screens
         document.addEventListener("touchmove", function (e) {
