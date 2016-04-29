@@ -1,7 +1,6 @@
 "use strict";
 
 document.addEventListener("DOMContentLoaded", function(event) {
-    var EARTH_TIMELAPSE_CONFIG = EARTH_TIMELAPSE_CONFIG || {};
     var startupConnectionThreshold = (typeof(EARTH_TIMELAPSE_CONFIG.startupConnectionThreshold) !== "number") ? 0 : EARTH_TIMELAPSE_CONFIG.startupConnectionThreshold;
 
     var oSplash = document.createElement("DIV");
