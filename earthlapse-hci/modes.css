@@ -136,26 +136,18 @@ body.earthlapse-modes-explore .presentationSlider {
     width: 270px;
     height: 200px;
     border: 0;
-    opacity: 0;
     right: 40px;
     bottom: 170px;
-    visibility: hidden;
-    transition-duration: 1s;
-    transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
 }
 
 body.earthlapse-modes-story .contextMapContainer {
     box-shadow: rgba(0, 0, 0, 0.5) 3px 3px 5px;
-    opacity: 1;
-    visibility: visible;
 }
 
 body.earthlapse-modes-explore .contextMapContainer {
     right: 20px;
     bottom: 223px;
     box-shadow: rgba(0, 0, 0, 0.298039) 2px 2px 3px;
-    opacity: 1;
-    visibility: visible;
 }
 
 .contextMapContainer .contextMapResizer,
@@ -172,6 +164,10 @@ body.earthlapse-modes-explore .contextMapContainer {
 }
 
 body.earthlapse-modes .vector-legend {
-    top: 30px;
-    left: 120px !important;
+    top: 40px;
+    left: 130px !important;
+}
+
+.current-location-text {
+    bottom: 255px;
 }

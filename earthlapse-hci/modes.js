@@ -98,10 +98,14 @@
 
         // Convert CREATE Lab UI into Earthlapse exploration mode
         var $explore = $(".location_search_div, .presentationSlider, .current-location-text, .player > div[class]:not(#timeMachine_timelapse), #timeMachine_timelapse > div");
-        $explore = $explore.not(".contextMapContainer");
         $explore.addClass("earthlapse-modes-container earthlapse-modes-explore-container");
+        $explore.filter(".vector-legend, .contextMapContainer").addClass("earthlapse-modes-story-container");
 
-        // Restore context map in exploration mode
+        // Show the legend
+        var $legend = $(".vector-legend")
+        $legend.remove().appendTo("#timeMachine");
+
+        // Show a context map
         var $contextMap = $(".contextMapContainer").removeAttr("style");
         $contextMap.remove().appendTo("#timeMachine");
         var $contextMapUI = $contextMap.find(".toggleContextMapBtn, .contextMapResizer");
