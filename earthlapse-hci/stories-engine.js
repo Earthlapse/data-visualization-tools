@@ -105,7 +105,11 @@
 
     function flyToBox(boundingBox) {
         EarthlapseUI.Stories.Viewport.setBoundingBox(boundingBox);
-        timelapse.setNewView({ bbox: boundingBox });
+        timelapse.setNewView({ bbox: boundingBox }, false, false, function () {
+            // Workaround to prevent parabolicMotion if next boundingBox is the same
+            // TODO: parabolicMotion has a bug wherein the completion callback is not called if the view doesn't change
+            timelapse.setTargetView(timelapse.normalizeView({ bbox: boundingBox }));
+        });
     }
 
     function loadStory(storyId) {
