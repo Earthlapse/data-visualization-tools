@@ -81,7 +81,7 @@
             "Map": "landsat-base"
         },
         {
-            "Text": "By 2015, the total population of the Las Vegas metropolitan area is 2,147,641, a nearly 400% increase in the span of 30 years. As the population of Las Vegas grew, Lake Mead shrank. Now in 2015, a significant portion of the lake is gone.",
+            "Text": "By 2015, the total population of the Las Vegas metropolitan area is 2,147,641, a nearly 400% increase in the span of 30 years.",
             "BoundingBox": {
                 "xmin": 239318.1997833043,
                 "xmax": 243329.75371107023,
