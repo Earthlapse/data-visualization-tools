@@ -103,6 +103,7 @@
 
         // Restore context map in exploration mode
         var $contextMap = $(".contextMapContainer").removeAttr("style");
+        $contextMap.remove().appendTo("#timeMachine");
         var $contextMapUI = $contextMap.find(".toggleContextMapBtn, .contextMapResizer");
         $contextMapUI.click();
 
