@@ -81,6 +81,12 @@ body.earthlapse-modes-story .earthlapse-modes-screen.earthlapse-modes-story-cont
     transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
 }
 
+body.earthlapse-continuum-secondary .earthlapse-ui-globalcontrol,
+body.earthlapse-modes-default .earthlapse-ui-globalcontrol,
+body.earthlapse-modes-menu .earthlapse-ui-globalcontrol {
+    display: none;
+}
+
 body.earthlapse-modes-menu .earthlapse-ui-globalcontrol,
 body.earthlapse-modes-story .earthlapse-ui-globalcontrol,
 body.earthlapse-modes-explore .earthlapse-ui-globalcontrol {
@@ -109,9 +115,21 @@ body.earthlapse-modes-explore .earthlapse-ui-globalcontrol-homebutton {
   transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
 }
 
+body.earthlapse-continuum-primary .player {
+    opacity: 0;
+    visibility: hidden;
+}
+
+body.earthlapse-continuum-primary.earthlapse-modes-default .player,
+body.earthlapse-continuum-primary.earthlapse-modes-explore .player {
+    opacity: 1;
+    visibility: visible;
+}
+
 body.earthlapse-modes-default .player,
 body.earthlapse-modes-menu .player,
-body.earthlapse-modes-story .player {
+body.earthlapse-modes-story .player,
+body.earthlapse-continuum-secondary .player {
   top: 0 !important;
   left: 0 !important;
   right: 0 !important;
@@ -123,6 +141,10 @@ body.earthlapse-modes-explore .presentationSlider {
 }
 
 .presentationSlider {
+    transform: translate(0, 100%);
+}
+
+body.earthlapse-continuum-secondary .presentationSlider {
     transform: translate(0, 100%);
 }
 

@@ -77,11 +77,12 @@
     };
 
     function revertToDefault() {
-        changeModeTo("default");
+        EarthlapseUI.Modes.changeModeTo("default");
         resetRevertTimeout();
     };
 
     function resetRevertTimeout() {
+        if (EarthlapseUI.Continuum.getScreenId() === "secondary") { return; }
         clearTimeout(revertTimeout);
         revertTimeout = setTimeout(function() {
             revertToDefault();
@@ -116,7 +117,7 @@
         // Configure explore mode: Back to menu
         EarthlapseUI.GlobalControl.bindAction("home", function () {
             if (EarthlapseUI.Modes.getCurrentMode() !== "explore") { return; }
-            changeModeTo("menu");
+            EarthlapseUI.Modes.changeModeTo("menu");
         });
 
         // Set up timeout to revert to default mode
@@ -127,7 +128,7 @@
 
     // Expose modes API
     EarthlapseUI.Modes = {
-        changeModeTo: changeModeTo,
+        changeModeTo: EarthlapseUI.Continuum.fn("changeModeTo", changeModeTo),
         getCurrentMode: getCurrentMode,
         loadScreen: loadScreen,
         revertToDefault: revertToDefault,

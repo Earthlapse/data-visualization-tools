@@ -2,26 +2,47 @@
     EarthlapseUI.bind("loadedscreen", function (e) {
         if (e.mode !== "default") { return; }
 
+        var tourInterval = null;
+        var currentAutoModeWaypointIdx = -1;
+
         function showScreensaver() {
             // Reset exploration mode
             $("#timeMachine .thumbnail_highlight").removeClass("thumbnail_highlight");
 
-            // Enable Himawari layer
-            timelapse.setLoopPlayback(true);
-            EarthlapseUI.Stories.setMap("landsat-base");
-            EarthlapseUI.Stories.setLayers(["show-himawari"]);
-            timelapse.seek(0);
+            if (EarthlapseUI.Continuum.getScreenId() === "secondary") {
+                EarthlapseUI.Stories.setLayers([]);
+                timelapse.seek(0);
 
-            // Set Himawari viewport
-            var himawariBoundingBox = {
-                xmin: 427281.96650542633,
-                xmax: 1522596.4544802196,
-                ymin: 719301.378314219,
-                ymax: 1335415.77780004
-            };
-            var himawariView = { "bbox": himawariBoundingBox };
-            timelapse.stopParabolicMotion();
-            timelapse.setNewView(himawariView, true, true);
+                var triggerAutoModeClick = function() {
+                    currentAutoModeWaypointIdx++;
+                    if (currentAutoModeWaypointIdx >= timelapse.getSnaplapseForPresentationSlider().getNumKeyframes())
+                        currentAutoModeWaypointIdx = 0;
+                    // TODO: Previously we'd further refine the selector to include 'composerDivId' but the hyperwall codebase
+                    // pulls the waypoints out of the normal container when displaying in a special letterbox mode.
+                    var waypoint = $(".snaplapse_keyframe_list").children().eq(currentAutoModeWaypointIdx).children()[0];
+                    waypoint.click();
+                };
+                tourInterval = setInterval(triggerAutoModeClick, EARTH_TIMELAPSE_CONFIG.waypointDelayInMilliseconds);
+                currentAutoModeWaypointIdx = -1;
+                triggerAutoModeClick();
+            } else {
+                // Enable Himawari layer
+                timelapse.setLoopPlayback(true);
+                EarthlapseUI.Stories.setMap("landsat-base");
+                EarthlapseUI.Stories.setLayers(["show-himawari"]);
+                timelapse.seek(0);
+
+                // Set Himawari viewport
+                var himawariBoundingBox = {
+                    xmin: 427281.96650542633,
+                    xmax: 1522596.4544802196,
+                    ymin: 719301.378314219,
+                    ymax: 1335415.77780004
+                };
+                var himawariView = { "bbox": himawariBoundingBox };
+                timelapse.stopParabolicMotion();
+                timelapse.setNewView(himawariView, true, true);
+            }
 
             setTimeout(function () {
                 // Reveal beautiful world
@@ -45,6 +66,11 @@
 
             if (e.mode !== "default" && e.oldMode === "default") {
                 // Leaving screensaver mode
+
+                if (EarthlapseUI.Continuum.getScreenId() === "secondary") {
+                    clearInterval(tourInterval);
+                    EarthlapseUI.Stories.setMap("landsat-base");
+                }
 
                 // Turn off Himawari
                 EarthlapseUI.Stories.setLayers([]);

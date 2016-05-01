@@ -166,10 +166,10 @@
     EarthlapseUI.Stories = {
         setMap: setMap,
         setLayers: setLayers,
-        nextKeyframe: nextKeyframe,
-        prevKeyframe: prevKeyframe,
-        startStory: startStory,
-        finishStory: finishStory,
+        nextKeyframe: EarthlapseUI.Continuum.fn("nextKeyframe", nextKeyframe),
+        prevKeyframe: EarthlapseUI.Continuum.fn("prevKeyframe", prevKeyframe),
+        startStory: EarthlapseUI.Continuum.fn("startStory", startStory),
+        finishStory: EarthlapseUI.Continuum.fn("finishStory", finishStory),
         loadStory: loadStory
     };
 } (jQuery));
