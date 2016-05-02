@@ -125,6 +125,10 @@ body.earthlapse-continuum-primary .earthlapse-stories-explain-text {
     text-align: center;
 }
 
+body.earthlapse-continuum-secondary .earthlapse-stories-explain-nav {
+    display: none;
+}
+
 .earthlapse-stories-explain-nav {
     text-align: center;
     transition-delay: 0.5s;
