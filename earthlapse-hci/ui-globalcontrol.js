@@ -6,7 +6,6 @@
             case "home":
                 var $home = $(".earthlapse-ui-globalcontrol-homebutton");
                 $home.on("click", function (e) {
-                    e.preventDefault();
                     fn();
                 });
                 break;
@@ -18,10 +17,6 @@
         var $control = $("<div class=\"earthlapse-ui-globalcontrol\" />");
 
         var $home = $("<button class=\"ui-button earthlapse-ui-globalcontrol-item earthlapse-ui-globalcontrol-homebutton\">Home</button>");
-        $home.on("click", function (e) {
-            e.preventDefault();
-        });
-
         $control.append($home);
         $("#timeMachine").append($control);
     });
