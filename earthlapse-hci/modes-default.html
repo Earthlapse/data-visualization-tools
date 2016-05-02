@@ -36,6 +36,9 @@
                 // Transition: fade out previous session's time machine
                 $(".earthlapse-modes-default-container").addClass("transitioning");
                 setTimeout(showScreensaver, 500);
+
+                // Analytics
+                org.gigapan.Util.addGoogleAnalyticEvent('interface', 'timeout', 'interaction-end');
             }
 
             if (e.mode !== "default" && e.oldMode === "default") {

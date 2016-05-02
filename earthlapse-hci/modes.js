@@ -83,12 +83,7 @@
 
     function resetRevertTimeout() {
         clearTimeout(revertTimeout);
-        revertTimeout = setTimeout(function() {
-            revertToDefault();
-
-            // Analytics
-            org.gigapan.Util.addGoogleAnalyticEvent('interface', 'timeout', 'interaction-end');
-        }, revertTimeoutDelay);
+        revertTimeout = setTimeout(revertToDefault, revertTimeoutDelay);
     };
 
     // Initialize
