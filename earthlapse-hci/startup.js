@@ -2,6 +2,7 @@
 
 document.addEventListener("DOMContentLoaded", function(event) {
     var startupConnectionThreshold = (typeof(EARTH_TIMELAPSE_CONFIG.startupConnectionThreshold) !== "number") ? 0 : EARTH_TIMELAPSE_CONFIG.startupConnectionThreshold;
+    var presentationMode = (typeof(EARTH_TIMELAPSE_CONFIG.presentationMode) !== "boolean") ? false : EARTH_TIMELAPSE_CONFIG.presentationMode;
 
     var oSplash = document.createElement("DIV");
     oSplash.id = "earthlapse-ui-splash";
@@ -52,8 +53,15 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
         function waitForNetwork() {
             if (threshold <= 0 || succeeded >= threshold) {
-                oStatus.innerHTML = "Starting up...";
-                window.location.replace("../examples/webgl-timemachine/index.html");
+                if (presentationMode === true) {
+                    oStatus.innerHTML = "Ready for presentation - click to start";
+                    document.body.onclick = function () {
+                        window.location.replace("../examples/webgl-timemachine/index.html");
+                    }
+                } else {
+                    oStatus.innerHTML = "Starting up...";
+                    window.location.replace("../examples/webgl-timemachine/index.html");
+                }
                 return;
             }
 

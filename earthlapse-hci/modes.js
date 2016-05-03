@@ -1,6 +1,8 @@
 "use strict";
 
 (function($) {
+    var presentationMode = (typeof(EARTH_TIMELAPSE_CONFIG.presentationMode) !== "boolean") ? false : EARTH_TIMELAPSE_CONFIG.presentationMode;
+
     /* Configuration */
     var defaultMode = "default";
     var revertTimeoutDelay = 1 * 60 * 1000; // milliseconds since last click/touch
@@ -83,7 +85,9 @@
 
     function resetRevertTimeout() {
         clearTimeout(revertTimeout);
-        revertTimeout = setTimeout(revertToDefault, revertTimeoutDelay);
+        if (presentationMode !== true) {
+            revertTimeout = setTimeout(revertToDefault, revertTimeoutDelay);
+        }
     };
 
     // Initialize
